@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="scripts/index.js" defer></script>
+    <link rel="stylesheet" href="styles/index.css"/>
+</head>
+<body>
+    <!-- Top section for user inputs-->
+    <header>
+	<div id="formGroup">
+        <fieldset>
+            <legend>Current Sign Size is B</legend>
+            <button id="buttonToSwitchSignSizeToC">Switch to C</button>
+        </fieldset>
+        <fieldset>
+		<legend>On or off sale | LB on or off</legend>
+        <div id="onOff">
+            <input type="radio" id="notOnSale" name="OnOrOffSale" value="OffSale" onclick="noSale()" />
+            <label for="notOnSale">Not on sale</label>
+            <input type="radio" id="onSale" name="OnOrOffSale" value="onSale" onclick="saleAll()" checked />
+            <label for="onSale">On Sale</label>
+
+	    <input type="radio" id="LBVisible" name="LBOnOrOff" value="on" />
+            <label for="LBVisible">Per Pound Sign</label>
+            <input type="radio" id="LBNotVisible" name="LBOnOrOff" value="off" checked />
+            <label for="LBNotVisible">Not Per Pound</label>
+
+        </div>
+	    </fieldset>
+        <fieldset>
+	<legend>Descriptions</legend>
+        <input id="mainDesInput" placeholder="Main Description" oninput="addMain()" type="text" />
+        <br />
+        <input id="altDesInput" placeholder="Alt Description" oninput="addAlt()" type="text" />
+        <br />
+        <input id="saleDateInput" type="text" value="ON SALE THRU 11/05" style="width:169px;" oninput="addDate()" />
+        </fieldset>
+	<fieldset>
+		<legend>Price Layout</legend>
+        <div id="choosePriceType">
+            <input type="radio" class="btn btn-secondary" id="centsLayout" name="layout" onclick="centsLayout()" />
+            <label for="centsLayout">Cents</label>
+
+            <input type="radio" class="btn btn-secondary" id="dolCenLayout" name="layout" onclick="dolCenLayout()" checked />
+            <label for="dolCenLayout">Dollars</label>
+
+            <input type="radio" class="btn btn-secondary" id="forLayout" name="layout" onclick="forLayout()" />
+            <label for="forLayout">2/$5</label>
+
+            <input type="radio" class="btn btn-secondary" id="forLayoutD" name="layout" onclick="forLayoutdoub()" />
+            <label for="forLayoutD">2/$10</label>
+
+            <input type="radio" class="btn btn-secondary" id="boGoLayout" name="layout" onclick="boGoLayout()" />
+            <label for="boGoLayout">Bogo</label>
+
+            <input type="radio" class="btn btn-secondary" id="tenLayout" name="layout" onclick="tenLayout()" />
+            <label for="tenLayout">TENforTEN</label>
+        </div>
+	</fieldset>
+        <fieldset>
+		<legend>Price Inputs</legend>
+        <div>
+            <input id="size" type="text" style="width:150px;" placeholder="Size - Numbers Only" />
+            <input id="retailInput" type="text" placeholder="Retail Price" style="width:150px;" oninput="addRetail()" />
+
+
+            <select name="" id="forAmount" style="visibility:hidden;">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                
+            </select> 
+
+
+            <input id="price" style="width:100px;" placeholder=" Sale Price" type="text" />
+            <input type="button" value="Submit" onclick="pickTypeOfPrice()">
+        </div>
+        </fieldset>
+		
+	<fieldset>
+	<legend>Unit Type</legend>
+        <div id="chooseUnitType">
+            <input type="radio" id="unitTypePound" name="toggleUnitType" value="POUND" onclick="togglePound()" checked />
+            <label for="unitTypePound">POUND</label>
+
+            <input type="radio" id="unitTypeQuart" name="toggleUnitType" value="QUART" onclick="toggleQuart()" />
+            <label for="unitTypeQuart">QUART</label>
+
+            <input type="radio" id="unitTypeEach" name="toggleUnitType" value="EACH" onclick="toggleEach()" />
+            <label for="unitTypeEach">EACH</label>
+
+            <input type="radio" id="unitType50ct" name="toggleUnitType" value="50 COUNT" onclick="toggle50ct()" />
+            <label for="unitType50ct">50 COUNT</label>
+
+            <input type="radio" id="unitType100ct" name="toggleUnitType" value="100 COUNT" onclick="toggle100ct()" />
+            <label for="unitType100ct">100 COUNT</label>
+
+            <input type="radio" id="unitTypeOunce" name="toggleUnitType" value="OUNCE" onclick="toggleOunce()" />
+            <label for="unitTypeOunce">OUNCE</label>
+        </div>
+	</fieldset>
+	<fieldset>
+		<legend>Overrides</legend>
+        <div id="overideButtons">
+            <input type="radio" id="OverDisplay" name="toggleOver" value="On" onclick="toggleOn()" />
+            <label for="OverDisplay">On</label>
+            <input type="radio" id="OverDisplayOff" name="toggleOver" value="Off" onclick="toggleOff()" checked />
+            <label for="OverDisplayOff">Off</label>
+        </div>
+        <div id="overides" style="display: none;">
+            <a><input id="mainPriceInput" placeholder="Price dollar" oninput="addPriceBefore()" /></a>
+            <br />
+            <a><input id="altPriceInput" placeholder="Price cents" oninput="addPriceAfter()" /></a>
+            <br />
+            <a><input id="unitPriceInput" placeholder="Change retail " oninput="addUnitPrice()" /></a>
+            <br />
+            <a><input id="unitTypeInput" placeholder="PER LB, CT, PINT, ETC." oninput="addUnitType()" /></a>
+            <br />
+            <a><input id="MustBuyInput" value="MUST BUY " oninput="addMustBuy()" /></a>
+            <br />
+            <a><input id="youSavePriceMainInput" placeholder="You save dollars" oninput="addYouSaveMain()" /></a>
+            <br />
+            <a><input id="youSavePriceAltInput" placeholder="You save cents" oninput="addYouSaveAlt()" /></a>
+            <br />
+        </div>
+	</fieldset>
+	</div>
+        <input id="printButton" type="button" value="Print" style="height: 100%;" onclick="window.print()" />
+
+    </header>
+    <!-- Outline for the sign-->
+    <section>
+        <div id="outline">
+            <header> Everyone <span>Loves to Save</span></header>
+            <div id="desBox">
+                <div id="mainDescription">Type main item here. 2 lines maximum. Do not use all caps.</div>
+                <div id="altDescription">
+                    Do NOT change the font size/style. Just re-type your new copy here.
+                    This info should reflect a description of the above - sizes, varieties, etc.
+                </div>
+                <div id="saleDate">ON SALE 10/21 THRU 11/05</div>
+            </div>
+            <div id="price">
+                <div id="pLeft" width="auto"></div>
+                <div id="priceBeforeDecimal">5</div>
+                <div id="priceAfterDecimal">99</div>
+                <div id="pRight"></div>
+            </div>
+            <footer>
+                <div id="unitBox">
+                    <a><img src="images/unit_price.jpg" height="20" width="100" /></a>
+                    <div id="unitPriceBox">19.99</div>
+                    <div id="unitType">PER POUND</div>
+                </div>
+                <div id="rightBox">
+                    <div id="mustBuy" style="height: 25px">
+			<div id="MustBuyInner"></div>
+			<div id="LBOption" style="display:none;">lb.</div>
+
+		    </div>
+                    <div id="advCardDiv">
+                        <a><img src="images/adv_card.jpg" height="24" width="575" /></a>
+                        <div id="retail"></div>
+                    </div>
+                    <div id="youSaveBoxDiv">
+                        <div id="youSaveImg">
+                            <img src="images/you_save.jpg" height="65" width="275" />
+                            <div id="youSavePriceMain"></div>
+                            <div id="youSavePriceAlt"></div>
+                            <div id="whenYouBuy" >
+                                <p style="margin-top: 2px; margin-bottom: 2px;">WHEN</p> 
+                                <p style="margin-top: -5px; margin-bottom: 1px;">YOU</p>
+                            <div style="margin-top: -4px;" id="spanWhenYouBuy">BUY X</div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mixMatch"></div>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+   
+</body>
+</html>
