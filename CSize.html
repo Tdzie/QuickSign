@@ -81,9 +81,10 @@
                 <label for="unitTypeOunce">OUNCE</label>
             </div>
         </fieldset>
+        <!--Price input boxes-->
         <fieldset>
             <legend>Price Input</legend>
-            <div>
+            <div id="priceInputOuterDiv">
                 <input id="size" type="text" style="width:150px;" placeholder="Size - Numbers only" />
                 <input id="retailInput" type="text" oninput="addRetail()" placeholder="Retail Price" style="width:150px;" />
 
@@ -101,7 +102,7 @@
                 </select>
 
                 <input id="price" style="width:100px;" placeholder=" Sale Price" type="text" />
-                <input type="button" value="Submit" onclick="pickTypeOfPrice()">
+                <input type="button" value="Submit" style="height:35px;" onclick="pickTypeOfPrice()">
             </div>
         </fieldset>
         

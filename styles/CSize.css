@@ -292,4 +292,9 @@ div#outline > footer {
     position: relative;
     top: -33px;
 }
+#priceInputOuterDiv > input, select {
+height: 25px;
+font-size: 17px;
+}
+
 
