@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="styles/CSize.css" />
 </head>
 <body>
-    <header>
+    <header id="formHeader">
+        <div id="mainFormBoxes">
         <fieldset>
             <legend>Current Sign Size is C</legend>
             <input type="button" id="buttonToSwitchSignSizeToB" value="Switch to B"/>
@@ -135,7 +136,11 @@
             </div>
         </fieldset>
         <!-- PRINT button-->
-        <input type="button" value="Print" style="height: 45px;" onclick="window.print()" />
+        <input id="printButton" type="button" value="Print" onclick="window.print()" />
+    </div>
+    <div id="recentSigns">
+
+    </div>
     </header>
 
     <section>

@@ -297,4 +297,21 @@ height: 25px;
 font-size: 17px;
 }
 
+#recentSigns {
+    margin-left: 10px;
+    width: 200px;
+    height: 100%;
+    background-color: white;
+}
+#formHeader{
+    display: flex;
+    width: auto;
+
+}
+#printButton{
+    width: 100%;
+    height: 75px;
+}
+
+
 
