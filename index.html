@@ -31,11 +31,11 @@
 	    </fieldset>
         <fieldset>
 	<legend>Descriptions</legend>
-        <input id="mainDesInput" placeholder="Main Description" oninput="addMain()" type="text" />
+        <input id="mainDesInput" placeholder="Main Description" oninput="addMain()" style="width: 100%;" type="text" />
         <br />
-        <input id="altDesInput" placeholder="Alt Description" oninput="addAlt()" type="text" />
+        <input id="altDesInput" placeholder="Alt Description" oninput="addAlt()" style="width: 100%;" type="text" />
         <br />
-        <input id="saleDateInput" type="text" value="ON SALE THRU 11/05" style="width:169px;" oninput="addDate()" />
+        <input id="saleDateInput" type="text" value="ON SALE THRU 11/05" style="width: 100%;" oninput="addDate()" />
         </fieldset>
 	<fieldset>
 		<legend>Price Layout</legend>
@@ -59,6 +59,30 @@
             <label for="tenLayout">TENforTEN</label>
         </div>
 	</fieldset>
+    <!--This fieldset is used for the Unit Types-->
+    <fieldset>
+	<legend>Unit Type</legend>
+        <div id="chooseUnitType">
+            <input type="radio" id="unitTypePound" name="toggleUnitType" value="POUND" onclick="togglePound()" checked />
+            <label for="unitTypePound">POUND</label>
+
+            <input type="radio" id="unitTypeQuart" name="toggleUnitType" value="QUART" onclick="toggleQuart()" />
+            <label for="unitTypeQuart">QUART</label>
+
+            <input type="radio" id="unitTypeEach" name="toggleUnitType" value="EACH" onclick="toggleEach()" />
+            <label for="unitTypeEach">EACH</label>
+
+            <input type="radio" id="unitType50ct" name="toggleUnitType" value="50 COUNT" onclick="toggle50ct()" />
+            <label for="unitType50ct">50 COUNT</label>
+
+            <input type="radio" id="unitType100ct" name="toggleUnitType" value="100 COUNT" onclick="toggle100ct()" />
+            <label for="unitType100ct">100 COUNT</label>
+
+            <input type="radio" id="unitTypeOunce" name="toggleUnitType" value="OUNCE" onclick="toggleOunce()" />
+            <label for="unitTypeOunce">OUNCE</label>
+        </div>
+	</fieldset>
+
         <fieldset>
 		<legend>Price Inputs</legend>
         <div>
@@ -85,28 +109,7 @@
         </div>
         </fieldset>
 		
-	<fieldset>
-	<legend>Unit Type</legend>
-        <div id="chooseUnitType">
-            <input type="radio" id="unitTypePound" name="toggleUnitType" value="POUND" onclick="togglePound()" checked />
-            <label for="unitTypePound">POUND</label>
-
-            <input type="radio" id="unitTypeQuart" name="toggleUnitType" value="QUART" onclick="toggleQuart()" />
-            <label for="unitTypeQuart">QUART</label>
-
-            <input type="radio" id="unitTypeEach" name="toggleUnitType" value="EACH" onclick="toggleEach()" />
-            <label for="unitTypeEach">EACH</label>
-
-            <input type="radio" id="unitType50ct" name="toggleUnitType" value="50 COUNT" onclick="toggle50ct()" />
-            <label for="unitType50ct">50 COUNT</label>
-
-            <input type="radio" id="unitType100ct" name="toggleUnitType" value="100 COUNT" onclick="toggle100ct()" />
-            <label for="unitType100ct">100 COUNT</label>
-
-            <input type="radio" id="unitTypeOunce" name="toggleUnitType" value="OUNCE" onclick="toggleOunce()" />
-            <label for="unitTypeOunce">OUNCE</label>
-        </div>
-	</fieldset>
+	
 	<fieldset>
 		<legend>Overrides</legend>
         <div id="overideButtons">
@@ -133,7 +136,8 @@
         </div>
 	</fieldset>
 	</div>
-        <input id="printButton" type="button" value="Print" style="height: 100%;" onclick="window.print()" />
+    <!--PRINT Button-->
+        <input id="printButton" type="button" value="Print" style="height: 45px;" onclick="window.print()" />
 
     </header>
     <!-- Outline for the sign-->

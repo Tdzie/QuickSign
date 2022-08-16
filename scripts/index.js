@@ -351,8 +351,17 @@
         x.className = "sale";
             }
         }
+        function myFunction1() {
+            var x = document.getElementById("whenYouBuy");
+    // If "mystyle" exist, overwrite it with "mystyle2"
+    if (x.className === "noSale") {
+        x.className = "sale";
+            } else {
+        x.className = "sale";
+            }
+        }
     function saleAll() {
-        myFunction1();
+    myFunction1();
     myFunction2();
     myFunction3();
     myFunction4();
