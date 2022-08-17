@@ -15,7 +15,10 @@
 #versionName{
     font-size: 1.2em;
     color: #4c4;
-    
+
+}
+#versionName >p{
+        margin: 5px;
 }
 #CurrentSignSize{
     font-size: 1.8em;
