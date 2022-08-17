@@ -337,8 +337,8 @@ div#outline > footer {
         -webkit-print-color-adjust: exact;
         color: #ffffff;
     }
-    div#formHeader {
-        display: none;
+    #outline{
+        margin-top:-30px:
     }
 }
 
