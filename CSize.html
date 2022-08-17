@@ -6,13 +6,23 @@
     <script src="scripts/CSize.js" defer></script>
     <link rel="stylesheet" href="styles/CSize.css" />
 </head>
-<body>
+<div id="realHeader">
+    <img src="images/QuickSignlogo.png" alt="QuickSign logo" srcset="" width="150px" height="75px">
+    <span>
+        <p id="CurrentSignSize">Current Sign is C</p>
+        <input type="button" id="buttonToSwitchSignSizeToB" value="Switch to B"/>
+    </span>
+    <span id="versionName">
+        <p>Version 1.04</p>
+        <p>Developer: Timothy Dziedzic</p>
+    </span>
+</div>
     <header id="formHeader">
+         <div id="recentSigns">
+
+        </div>
         <div id="mainFormBoxes">
-        <fieldset>
-            <legend>Current Sign Size is C</legend>
-            <input type="button" id="buttonToSwitchSignSizeToB" value="Switch to B"/>
-        </fieldset>
+
         <fieldset>
             <legend>On or off sale | LB on or off</legend>
             <div id="onOff">
@@ -84,9 +94,9 @@
         </fieldset>
         <!--Price input boxes-->
         <fieldset>
-            <legend>Price Input</legend>
+            <legend>Price Inputs</legend>
             <div id="priceInputOuterDiv">
-                <input id="size" type="text" style="width:150px;" placeholder="Size - Numbers only" />
+                <input id="size" type="text" style="width:150px;" placeholder="Size - Numbers Only" />
                 <input id="retailInput" type="text" oninput="addRetail()" placeholder="Retail Price" style="width:150px;" />
 
                 <select name="" id="forAmount" style="visibility:hidden;">
@@ -138,9 +148,7 @@
         <!-- PRINT button-->
         <input id="printButton" type="button" value="Print" onclick="window.print()" />
     </div>
-    <div id="recentSigns">
 
-    </div>
     </header>
 
     <section>

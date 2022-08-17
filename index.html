@@ -7,14 +7,24 @@
     <link rel="stylesheet" href="styles/index.css"/>
 </head>
 <body>
-    <!-- Top section for user inputs-->
+<div id="realHeader">
+    <img src="images/QuickSignlogo.png" alt="QuickSign logo" srcset="" width="150px" height="75px">
+    <span>
+        <p id="CurrentSignSize">Current Sign is B</p>
+        <input type="button" id="buttonToSwitchSignSizeToC" value="Switch to C"/>
+    </span>
+    <span id="versionName">
+        <p>Version 1.04</p>
+        <p>Developer: Timothy Dziedzic</p>
+    </span>
+</div>
+    <!--  Top section for user inputs-->
     <header id="formHeader">
+              <div id="recentSigns">
+
+        </div>
         <div id="mainFormBoxes">
             <div id="formGroup">
-                <fieldset>
-                        <legend>Current Sign Size is B</legend>
-                        <input type="button" id="buttonToSwitchSignSizeToC" value="Switch to C"/>
-                    </fieldset>
 
                     <fieldset>
                     <legend>On or off sale | LB on or off</legend>
@@ -141,9 +151,7 @@
                  <input id="printButton" type="button" value="Print"  onclick="window.print()" />
             </div>
         </div>
-        <div id="recentSigns">
-
-        </div>
+  
     </header>
     <!-- Outline for the sign-->
     <section>
