@@ -1,4 +1,30 @@
+#buttonToSwitchSignSizeToC{
+    width: 100%;
+}
 
+#realHeader {
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 5px;
+    background-color: #444;
+    border: solid whitesmoke 2px;
+    display: flex;
+    justify-content: space-between;
+ 
+}
+#versionName{
+    font-size: 1.2em;
+    color: #4c4;
+    
+}
+#CurrentSignSize{
+    font-size: 1.8em;
+    color: #4c4;
+    margin: 5px;
+}
+#realHeader > img {
+       margin: 5px;
+}
 
 fieldset > legend {
     color: #7BBA2F;
@@ -111,7 +137,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 1600px;
-    justify-content: space-around;
+
     align-content: space-around;
 }
 
@@ -330,13 +356,15 @@ font-size: 17px;
 
 #recentSigns {
     margin-left: 10px;
+    margin-right: 25px;
     width: 200px;
-    height: 100%;
+    height: 99%;
     background-color: white;
 }
 #formHeader{
     display: flex;
     width: auto;
+    margin-bottom: 30px;
 
 }
 #printButton{
