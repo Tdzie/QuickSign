@@ -111,6 +111,8 @@ div#choosePriceType label:hover, div#onOff label:hover, div#chooseUnitType label
 
 html {
     background-color: #24180D;
+        display: flex;
+    justify-content: center;
 }
 
 body > header {
@@ -160,7 +162,7 @@ body {
     flex-wrap: wrap;
 
     align-content: space-around;
-    max-width: 1400px;
+    max-width: 1600px;
 }
 
 #mainDescription {
@@ -277,6 +279,9 @@ div#outline > footer {
 }
 
 @media print {
+    #realHeader, #recentSigns, #formHeader, #mainFormBoxes {
+        display: none;
+    }
     div#outline {
         margin-top: -27px;
     }
@@ -329,7 +334,7 @@ font-size: 17px;
     margin-left: 10px;
     margin-right: 25px;
     width: 200px;
-    height: 99%;
+    height: 582px;
     background-color: white;
 }
 #formHeader{
