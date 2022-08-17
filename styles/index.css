@@ -337,6 +337,9 @@ div#outline > footer {
         -webkit-print-color-adjust: exact;
         color: #ffffff;
     }
+    div#formHeader {
+        display: none;
+    }
 }
 
 .noSale {
