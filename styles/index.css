@@ -9,7 +9,7 @@
     border: solid whitesmoke 2px;
     display: flex;
     justify-content: space-between;
- 
+    margin-bottom: 30px;
 }
 #versionName{
     font-size: 1.2em;
