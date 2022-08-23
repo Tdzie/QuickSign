@@ -1,3 +1,33 @@
+
+#recentSigns > p:hover{
+    background-color: #bfb;
+}
+#recentSigns > p {
+ border: 1px black solid;
+ margin-top: 10px;
+ margin-bottom: 10px;
+ font-size: 1.3rem;
+ text-align: center;
+ cursor: pointer;
+ background-color:  yellow;
+ border-radius: 5px;
+ color: black;
+ min-height: 50px;
+}
+#recentSigns {
+    margin-left: 10px;
+    margin-right: 25px;
+    width: 250px;
+    height: 505px;
+    overflow-y: scroll;
+}
+
+#recentOutDiv{
+    display: flex;
+    color: #4c4;
+    flex-direction: column;
+    align-items: center;
+}
 #buttonToSwitchSignSizeToB{
     width: 100%;
 }
@@ -282,7 +312,7 @@ div#outline > footer {
 }
 
 @media print {
-    #realHeader, #recentSigns, #formHeader, #mainFormBoxes {
+    #realHeader, #recentSigns, #formHeader, #mainFormBoxes, #recentOutDiv {
         display: none;
     }
     div#outline {
@@ -333,13 +363,7 @@ height: 25px;
 font-size: 17px;
 }
 
-#recentSigns {
-    margin-left: 10px;
-    margin-right: 25px;
-    width: 200px;
-    height: 582px;
-    background-color: white;
-}
+
 #formHeader{
     display: flex;
     width: auto;

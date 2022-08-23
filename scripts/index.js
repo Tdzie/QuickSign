@@ -1,4 +1,227 @@
- 
+
+const printButton = document.getElementById("printButton");
+const recentSigns = document.getElementById('recentSigns');
+let currentSignCount = 0;
+let signHistoryArr = [];
+
+
+// Number of signs kept in recent
+const limitOfSignsInRecent = 15;
+// consts for document information
+
+    const onSaleButton = document.getElementById("onSale");
+    const offSaleButton = document.getElementById("notOnSale");
+
+    const perPoundSignButton = document.getElementById("LBVisible");
+    const notPerPoundSign = document.getElementById("LBNotVisible");
+
+    const mainDescriptionInput = document.getElementById("mainDesInput");
+    const altDescriptionInput = document.getElementById("altDesInput");
+    const saleDateInput = document.getElementById("saleDateInput");
+
+    const mainDescriptionSign = document.getElementById('mainDescription');
+    const altDescriptionSign = document.getElementById('altDescription');
+    const saleDateDescriptionSign = document.getElementById('saleDate');
+
+    const centsLayoutButton = document.getElementById("centsLayout");
+    const dollarCentsLayoutButton = document.getElementById("dolCenLayout");
+    const forOneLayoutButton = document.getElementById("forLayout");
+    const forTwoLayoutButton = document.getElementById("forLayoutD");
+    const bogoLayoutButton = document.getElementById("boGoLayout");
+    const tenfortenLayoutButton = document.getElementById("tenLayout");
+
+    const unitTypePoundButton = document.getElementById('unitTypePound');
+    const unitTypeQuartButton = document.getElementById('unitTypeQuart');
+    const unitTypeEachButton = document.getElementById('unitTypeEach');
+    const unitType50Button = document.getElementById('unitType50ct');
+    const unitType100Button = document.getElementById('unitType100ct');
+    const unitTypeOunceButton = document.getElementById('unitTypeOunce');
+
+    const sizeInput = document.getElementById('size');
+    const retailInput = document.getElementById('retailInput');
+    const retailOnSign = document.getElementById('retail');
+    const forAmountInput = document.getElementById('forAmount');
+    const priceInput = document.getElementById('price');
+
+    const sumbitButton = document.getElementById('submitButton');
+
+
+if(localStorage.getItem('signHistory') == null)
+{
+    localStorage.setItem('signHistory', JSON.stringify(signHistoryArr));
+}
+else
+{
+    let unparHistory = localStorage.getItem('signHistory');
+    signHistoryArr = JSON.parse(unparHistory);
+}
+
+
+printButton.addEventListener('click', storeSignInformation);
+
+
+function storeSignInformation(){
+
+    // sale button
+    let saleRadioButtons = document.getElementsByName("OnOrOffSale");
+    let selectedSale = Array.from(saleRadioButtons).find(radio => radio.checked);
+
+    // lb button
+    let lbRadioButton = document.getElementsByName("LBOnOrOff");
+    let lbSign = Array.from(lbRadioButton).find(radio => radio.checked);
+
+    // descriptions
+    let mainDesc = document.getElementById("mainDesInput").value;
+    let altDesc = document.getElementById("altDesInput").value;
+    let salesDate = document.getElementById("saleDateInput").value;
+
+    // price layout
+    let layoutRadioButtons = document.getElementsByName("layout");
+    let selectedLayout = Array.from(layoutRadioButtons).find(radio => radio.checked);
+
+    // unit type
+    let unitPriceType = document.getElementsByName("toggleUnitType");
+    let selectedUnitType = Array.from(unitPriceType).find(radio => radio.checked);
+
+    // price information
+    let size = document.getElementById("size").value;
+    let retail = document.getElementById("retailInput").value;
+    let forAmount = document.getElementById("forAmount").value;
+    let salePrice = document.getElementById("price").value;
+
+    let signInformation = [selectedSale.value, lbSign.value, mainDesc, altDesc, salesDate, selectedLayout.value, selectedUnitType.value, size, retail, forAmount, salePrice];
+    
+
+    signHistoryArr.unshift(signInformation);
+
+    if(signHistoryArr.length > limitOfSignsInRecent){
+       signHistoryArr.pop();  
+    }
+   
+    localStorage.setItem('signHistory',JSON.stringify(signHistoryArr));
+
+    addToRecent();
+}
+
+
+function addToRecent(){
+   
+    let firstSign = localStorage.getItem('signHistory');
+    let prasedResult = JSON.parse(firstSign);
+    recentSigns.innerHTML = ""; 
+    let currentIDNumber = 0;
+    prasedResult.forEach(element => {
+        let newP = document.createElement('P');
+        newP.innerHTML = element[2];
+        newP.setAttribute('id', `recentSign${currentIDNumber}`)
+        newP.value = currentIDNumber;
+        newP.onclick = createSignFromHistory;
+        recentSigns.appendChild(newP);
+        currentIDNumber++;
+    });
+    
+}
+
+
+
+
+function createSignFromHistory(){
+
+    let signInformation = signHistoryArr[this.value];
+
+    // sale button
+    switch (signInformation[0]) {
+        case 'onSale':
+            onSaleButton.click();
+            break;
+        case 'OffSale':
+            offSaleButton.click();
+            break;
+        default:
+            break;
+    }
+    // per pound button
+    switch (signInformation[1]) {
+        case 'off':
+            notPerPoundSign.click();
+            break;
+        case 'on':
+            perPoundSignButton.click();
+            break;
+        default:
+            break;
+    }
+    // Discriptions
+    mainDescriptionInput.value = signInformation[2];
+    mainDescriptionSign.innerHTML = signInformation[2];
+    altDescriptionInput.value = signInformation[3];
+    altDescriptionSign.innerHTML = signInformation[3];
+    saleDateInput.value = signInformation[4];
+    saleDateDescriptionSign.innerHTML = signInformation[4];
+    // price layouts
+    switch (signInformation[5]) {
+        case 'cents':
+            centsLayoutButton.click()
+            break;
+        case 'dollarCents':
+            dollarCentsLayoutButton.click()
+            break;
+        case 'forOne':
+            forOneLayoutButton.click()
+            break;
+        case 'forTwo':
+            forTwoLayoutButton.click()
+            break;
+        case 'bogo':
+            bogoLayoutButton.click()
+            break;
+        case 'ten':
+            tenfortenLayoutButton.click()
+            break;
+        default:
+            break;
+    }
+
+    // Unit types
+    switch (signInformation[6]) {
+        case 'POUND':
+            unitTypePoundButton.click()
+            break;
+        case 'QUART':
+            unitTypeQuartButton.click()
+            break;
+        case 'EACH':
+            unitTypeEachButton.click()
+            break;
+        case "50 COUNT":
+            unitType50Button.click()
+            break;
+        case "100 COUNT":
+            unitType100Button.click()
+            break;
+        case "OUNCE":
+            unitTypeOunceButton.click()
+            break;
+    
+        default:
+            break;
+    }
+    // price information
+    sizeInput.value = signInformation[7];
+    retailInput.value = signInformation[8];
+    retailOnSign.innerHTML = signInformation[8];
+    forAmountInput.value = signInformation[9];
+    priceInput.value = signInformation[10];
+
+
+    //submit button
+    sumbitButton.click()
+}
+
+
+
+
+
 	// Event handlers for toggle of LB on sign
     // Hide the LB div
     document.getElementById("LBNotVisible").onclick = function() {
@@ -675,3 +898,9 @@
     document.getElementById("buttonToSwitchSignSizeToC").addEventListener("click", function () {
         location.href = 'CSize.html';
         })
+
+window.onload = (event) => {
+    addToRecent();
+
+    
+};

@@ -2,11 +2,31 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PJ7CQS2');</script>
+<!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G8RHM39TTD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G8RHM39TTD');
+</script>
     <meta charset="utf-8" />
     <script src="scripts/index.js" defer></script>
     <link rel="stylesheet" href="styles/index.css"/>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJ7CQS2"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div id="realHeader">
     <img src="images/QuickSignlogo.png" alt="QuickSign logo" srcset="" width="150px" height="75px">
     <span>
@@ -14,18 +34,19 @@
         <input type="button" id="buttonToSwitchSignSizeToC" value="Switch to C"/>
     </span>
     <span id="versionName">
-        <p>Version 1.06</p>
+        <p>Version 1.10</p>
         <p>Developer: Timothy Dziedzic</p>
         <p>Contact: timothydziedzic@pricechopper.com</p>
     </span>
 </div>
     <!--  Top section for user inputs-->
     <header id="formHeader">
+        <div id="recentOutDiv">
+            <h1>Recent Signs</h1>
             <div id="recentSigns">
-                <p>
-                    To Do
-                </p>
+            
             </div>
+        </div>
         <div id="mainFormBoxes">
             <div id="formGroup">
 
@@ -55,22 +76,22 @@
                 <fieldset>
                 <legend>Price Layout</legend>
                 <div id="choosePriceType">
-                    <input type="radio" class="btn btn-secondary" id="centsLayout" name="layout" onclick="centsLayout()" />
+                    <input type="radio" class="btn btn-secondary" id="centsLayout" value="cents" name="layout" onclick="centsLayout()" />
                     <label for="centsLayout">Cents</label>
 
-                    <input type="radio" class="btn btn-secondary" id="dolCenLayout" name="layout" onclick="dolCenLayout()" checked />
+                    <input type="radio" class="btn btn-secondary" id="dolCenLayout" value="dollarCents" name="layout" onclick="dolCenLayout()" checked />
                     <label for="dolCenLayout">Dollars</label>
 
-                    <input type="radio" class="btn btn-secondary" id="forLayout" name="layout" onclick="forLayout()" />
+                    <input type="radio" class="btn btn-secondary" id="forLayout" value="forOne" name="layout" onclick="forLayout()" />
                     <label for="forLayout">2/$5</label>
 
-                    <input type="radio" class="btn btn-secondary" id="forLayoutD" name="layout" onclick="forLayoutdoub()" />
+                    <input type="radio" class="btn btn-secondary" id="forLayoutD" value="forTwo" name="layout" onclick="forLayoutdoub()" />
                     <label for="forLayoutD">2/$10</label>
 
-                    <input type="radio" class="btn btn-secondary" id="boGoLayout" name="layout" onclick="boGoLayout()" />
+                    <input type="radio" class="btn btn-secondary" id="boGoLayout" value="bogo" name="layout" onclick="boGoLayout()" />
                     <label for="boGoLayout">Bogo</label>
 
-                    <input type="radio" class="btn btn-secondary" id="tenLayout" name="layout" onclick="tenLayout()" />
+                    <input type="radio" class="btn btn-secondary" id="tenLayout" value="ten" name="layout" onclick="tenLayout()" />
                     <label for="tenLayout">TENforTEN</label>
                 </div>
                 </fieldset>
@@ -120,7 +141,7 @@
 
 
                     <input id="price" style="width:100px;" placeholder=" Sale Price" type="text" />
-                    <input type="button" value="Submit" style="height:35px" onclick="pickTypeOfPrice()">
+                    <input type="button" id="submitButton" value="Submit" style="height:35px" onclick="pickTypeOfPrice()">
                 </div>
                 </fieldset>
                 
