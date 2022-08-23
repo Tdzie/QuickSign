@@ -34,13 +34,12 @@
 
 #realHeader {
     width: 100%;
-    margin-bottom: 30px;
     padding: 5px;
     background-color: #444;
     border: solid whitesmoke 2px;
     display: flex;
     justify-content: space-between;
- 
+    margin-bottom: 30px;
 }
 #versionName{
     font-size: 1.2em;
@@ -367,6 +366,9 @@ div#outline > footer {
         -webkit-print-color-adjust: exact;
         color: #ffffff;
     }
+    #outline{
+        margin-top:-30px:
+    }
 }
 
 .noSale {
@@ -394,7 +396,6 @@ font-size: 17px;
 #formHeader{
     display: flex;
     width: auto;
-    margin-bottom: 30px;
     margin-right: 10px;
 
 }
