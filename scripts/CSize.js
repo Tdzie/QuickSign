@@ -833,7 +833,7 @@ function createSignFromFavorites(event){
             sizeInput.value = "";
             sizeInput.style.backgroundColor = "red";
         }
-        else if(isNaN(retailInput.value) || retailInput.value == "")
+        else if(isNaN(retailInput.value) || retailInput.value == ""  && onSaleButton.checked)
         {
             retailInput.value = "";
             retailInput.style.backgroundColor = "red";
