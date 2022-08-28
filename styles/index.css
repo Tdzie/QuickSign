@@ -183,7 +183,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 1183px;
+    max-width: 1189px;
 
     align-content: space-around;
 }
