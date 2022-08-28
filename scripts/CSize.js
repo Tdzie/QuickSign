@@ -1,12 +1,24 @@
 
 const printButton = document.getElementById("printButton");
 const recentSigns = document.getElementById('recentSigns');
+const favoriteSigns = document.getElementById('FavoritesSigns');
+const addToFavoritesButton = document.querySelector("#addToFavories")
+
 let currentSignCount = 0;
 let signHistoryArr = [];
+let signFavortiesArr = [];
 
 
-// Number of signs kept in recent
-const limitOfSignsInRecent = 15;
+// Number of signs kept in recent and favorites
+const limitOfSignsInFavories = 25;
+const limitOfSignsInRecent = 25;
+
+// print button event to store signs in recent
+printButton.addEventListener('click', storeSignInformation);
+// submit button event to store signs in favorties
+addToFavoritesButton.addEventListener('click', storeSignInformationForFavorites);
+
+
 // consts for document information
 
     const onSaleButton = document.getElementById("onSale");
@@ -46,6 +58,7 @@ const limitOfSignsInRecent = 15;
     const sumbitButton = document.getElementById('submitButton');
 
 
+// Create or load the recents signs from local storage.
 if(localStorage.getItem('signHistory') == null)
 {
     localStorage.setItem('signHistory', JSON.stringify(signHistoryArr));
@@ -56,10 +69,21 @@ else
     signHistoryArr = JSON.parse(unparHistory);
 }
 
+// create/load the favorites from local storage.
+if(localStorage.getItem('userFavorites') == null)
+{
+    localStorage.setItem('userFavorites', JSON.stringify(signFavortiesArr));
+}
+else
+{
+    let unparFavorites = localStorage.getItem('userFavorites');
+    signFavortiesArr = JSON.parse(unparFavorites);
+}
 
-printButton.addEventListener('click', storeSignInformation);
 
 
+// ========================  Recent/history section    ===========================
+// Function to signs to recent signs
 function storeSignInformation(){
 
     // sale button
@@ -112,7 +136,7 @@ function addToRecent(){
     let currentIDNumber = 0;
     prasedResult.forEach(element => {
         let newP = document.createElement('P');
-        newP.innerHTML = element[2];
+        newP.innerHTML = `${element[2]}`;
         newP.setAttribute('id', `recentSign${currentIDNumber}`)
         newP.value = currentIDNumber;
         newP.onclick = createSignFromHistory;
@@ -217,7 +241,175 @@ function createSignFromHistory(){
     //submit button
     sumbitButton.click()
 }
+// ========================== END of recent/history section ==================
 
+// ========================== FAVORITES SECTION ==============================
+
+// this functions stores the sign informatin into the signFavoritesArr
+function storeSignInformationForFavorites(){
+
+    // sale button
+    let saleRadioButtons = document.getElementsByName("OnOrOffSale");
+    let selectedSale = Array.from(saleRadioButtons).find(radio => radio.checked);
+
+    // lb button
+    let lbRadioButton = document.getElementsByName("LBOnOrOff");
+    let lbSign = Array.from(lbRadioButton).find(radio => radio.checked);
+
+    // descriptions
+    let mainDesc = document.getElementById("mainDesInput").value;
+    let altDesc = document.getElementById("altDesInput").value;
+    let salesDate = document.getElementById("saleDateInput").value;
+
+    // price layout
+    let layoutRadioButtons = document.getElementsByName("layout");
+    let selectedLayout = Array.from(layoutRadioButtons).find(radio => radio.checked);
+
+    // unit type
+    let unitPriceType = document.getElementsByName("toggleUnitType");
+    let selectedUnitType = Array.from(unitPriceType).find(radio => radio.checked);
+
+    // price information
+    let size = document.getElementById("size").value;
+    let retail = document.getElementById("retailInput").value;
+    let forAmount = document.getElementById("forAmount").value;
+    let salePrice = document.getElementById("price").value;
+
+    let signInformation = [selectedSale.value, lbSign.value, mainDesc, altDesc, salesDate, selectedLayout.value, selectedUnitType.value, size, retail, forAmount, salePrice];
+    
+
+    signFavortiesArr.unshift(signInformation);
+
+    if(signFavortiesArr.length > limitOfSignsInFavories){
+       signFavortiesArr.pop();  
+    }
+   
+    localStorage.setItem('userFavorites',JSON.stringify(signFavortiesArr));
+
+    addToFavorites();
+}
+// this function gets infomation from local store "userFavorites" and creates the HTML p elements that is clickable.
+function addToFavorites(){
+   
+    let favoritesArray = localStorage.getItem('userFavorites');
+    let prasedResult = JSON.parse(favoritesArray);
+    favoriteSigns.innerHTML = ""; 
+    let currentIDNumber = 0;
+    prasedResult.forEach(element => {
+        let newP = document.createElement('P');
+        newP.innerHTML = element[2];
+        newP.setAttribute('id', `favoriteSign${currentIDNumber}`)
+        newP.value = currentIDNumber;
+        newP.onclick = createSignFromFavorites;
+        favoriteSigns.appendChild(newP);
+        currentIDNumber++;
+    });
+}
+
+// This function loads the sign information from the user favorites
+function createSignFromFavorites(event){
+
+    let signInformation = signFavortiesArr[this.value];
+
+    if(event.ctrlKey){
+    let favoritesArray = localStorage.getItem('userFavorites');
+    let prasedResult = JSON.parse(favoritesArray);
+
+    prasedResult.splice(this.value,1);
+    localStorage.setItem('userFavorites',JSON.stringify(prasedResult));
+    location.reload();
+    }
+    else{
+    // sale button
+    switch (signInformation[0]) {
+        case 'onSale':
+            onSaleButton.click();
+            break;
+        case 'OffSale':
+            offSaleButton.click();
+            break;
+        default:
+            break;
+    }
+    // per pound button
+    switch (signInformation[1]) {
+        case 'off':
+            notPerPoundSign.click();
+            break;
+        case 'on':
+            perPoundSignButton.click();
+            break;
+        default:
+            break;
+    }
+    // Discriptions
+    mainDescriptionInput.value = signInformation[2];
+    mainDescriptionSign.innerHTML = signInformation[2];
+    altDescriptionInput.value = signInformation[3];
+    altDescriptionSign.innerHTML = signInformation[3];
+    saleDateInput.value = signInformation[4];
+    saleDateDescriptionSign.innerHTML = signInformation[4];
+    // price layouts
+    switch (signInformation[5]) {
+        case 'cents':
+            centsLayoutButton.click()
+            break;
+        case 'dollarCents':
+            dollarCentsLayoutButton.click()
+            break;
+        case 'forOne':
+            forOneLayoutButton.click()
+            break;
+        case 'forTwo':
+            forTwoLayoutButton.click()
+            break;
+        case 'bogo':
+            bogoLayoutButton.click()
+            break;
+        case 'ten':
+            tenfortenLayoutButton.click()
+            break;
+        default:
+            break;
+    }
+
+    // Unit types
+    switch (signInformation[6]) {
+        case 'POUND':
+            unitTypePoundButton.click()
+            break;
+        case 'QUART':
+            unitTypeQuartButton.click()
+            break;
+        case 'EACH':
+            unitTypeEachButton.click()
+            break;
+        case "50 COUNT":
+            unitType50Button.click()
+            break;
+        case "100 COUNT":
+            unitType100Button.click()
+            break;
+        case "OUNCE":
+            unitTypeOunceButton.click()
+            break;
+    
+        default:
+            break;
+    }
+    // price information
+    sizeInput.value = signInformation[7];
+    retailInput.value = signInformation[8];
+    retailOnSign.innerHTML = signInformation[8];
+    forAmountInput.value = signInformation[9];
+    priceInput.value = signInformation[10];
+
+
+    //submit button
+    sumbitButton.click()
+}
+}
+// ==================== END of Favorites section ==================================
 
 
 
@@ -586,8 +778,91 @@ function createSignFromHistory(){
     myFunction9();
 
         }
+        // price adjust 888 -> 8.88
+   function alterPriceAddDecimal(price){
+    let priceBeforeDecimal;
+    let priceAfterDecimal;
+    let fixedPrice;
+    if(price.includes("."))
+    {
+        return price;
+    }
+    else if (price.length == 2 && forTwoLayoutButton.checked == false)
+    {
+        fixedPrice = "." + price;
+        return fixedPrice;
+    }
+    else if(price.length == 3)
+    {
+        priceBeforeDecimal = price.slice(0,1);
+        priceAfterDecimal = price.slice(1);
+        fixedPrice = priceBeforeDecimal + "." + priceAfterDecimal;
+        return fixedPrice;
+    }
+    else if(price.length == 4)
+    {
+        priceBeforeDecimal = price.slice(0,2);
+        priceAfterDecimal = price.slice(2);
+        fixedPrice = priceBeforeDecimal + "." + priceAfterDecimal;
+        return fixedPrice;
+    }
+    else
+    {
+        return price;
+    }
+   }
+// price verification
+         function priceErrorCheck(priceInputString){
+         if(priceInputString == 'bogo' && bogoLayoutButton.checked == true )
+    {
+        return false;
+    }
+    else if(isNaN(priceInputString) || priceInputString == '' || priceInputString == " ")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    }
     // FUNCTION TO CHECK THE TYPE OF PRICE AND RUN AUTO FILLS
     function pickTypeOfPrice() {
+        if(isNaN(sizeInput.value) || sizeInput.value == "")
+        {
+            sizeInput.value = "";
+            sizeInput.style.backgroundColor = "red";
+        }
+        else if(isNaN(retailInput.value) || retailInput.value == "")
+        {
+            retailInput.value = "";
+            retailInput.style.backgroundColor = "red";
+        }
+        else if (priceErrorCheck(priceInput.value))
+        {
+                priceInput.value = ""; 
+                priceInput.style.background = "red";
+        }
+        else
+        {
+
+      sizeInput.style.backgroundColor = "white";
+      retailInput.style.backgroundColor = "white";
+      priceInput.style.backgroundColor = "white";
+        
+      retailInput.value = alterPriceAddDecimal(retailInput.value);
+
+      retailOnSign.innerHTML = retailInput.value;
+
+      if(priceInput.value != "bogo"){
+        priceInput.value = alterPriceAddDecimal(priceInput.value)
+      }
+   
+
+
+       
+
+
         // button checked status
         let cents = document.getElementById("centsLayout").checked;
     let forLayout = document.getElementById("forLayout").checked;
@@ -611,6 +886,7 @@ function createSignFromHistory(){
         autoFillDolCent();
             }
         }
+    }
     // AUTO FILL FUNCTIONS
     //  CENTS
     function autoFillCent() {
@@ -893,6 +1169,6 @@ function createSignFromHistory(){
 
         window.onload = (event) => {
     addToRecent();
-
+    addToFavorites();
     
 };

@@ -2,6 +2,8 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
+    
 <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -23,10 +25,14 @@
     <link rel="stylesheet" href="styles/CSize.css" />
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
+   
+        
+      <!--    Google Tag Manager (noscript)-->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJ7CQS2"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+
 <div id="realHeader">
     <img src="images/QuickSignlogo.png" alt="QuickSign logo" srcset="" width="150px" height="75px">
     <span>
@@ -34,7 +40,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input type="button" id="buttonToSwitchSignSizeToB" value="Switch to B"/>
     </span>
     <span id="versionName">
-        <p>Version 1.10</p>
+        <p>Version 1.21</p>
         <p>Developer: Timothy Dziedzic</p>
         <p>Contact: timothydziedzic@pricechopper.com</p>
     </span>
@@ -147,10 +153,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <legend>Overrides</legend>
 
             <div id="overideButtons">
+                <div>
                 <input type="radio" id="OverDisplay" name="toggleOver" value="On" onclick="toggleOn()" />
                 <label for="OverDisplay">On</label>
                 <input type="radio" id="OverDisplayOff" name="toggleOver" value="Off" onclick="toggleOff()" checked />
                 <label for="OverDisplayOff">Off</label>
+                </div>
+                <input type="button" value="Add Sign to Favories" id="addToFavories">
             </div>
 
             <div id="overides" style="display: none;">
@@ -173,6 +182,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- PRINT button-->
         <input id="printButton" type="button" value="Print" onclick="window.print()" />
     </div>
+    <div id="FavoritesOutDiv">
+            <h1>Favorites</h1>
+            <span>Hold Ctrl + click to remove</span>
+            <div id="FavoritesSigns">
+            
+            </div>
+        </div>
 
     </header>
 

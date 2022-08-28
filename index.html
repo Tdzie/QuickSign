@@ -23,10 +23,14 @@
     <link rel="stylesheet" href="styles/index.css"/>
 </head>
 <body>
-   <!-- Google Tag Manager (noscript) -->
+   
+    
+   <!-- Google Tag Manager (noscript)-->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJ7CQS2"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<!-- End Google Tag Manager (noscript)-->
+
+
 <div id="realHeader">
     <img src="images/QuickSignlogo.png" alt="QuickSign logo" srcset="" width="150px" height="75px">
     <span>
@@ -34,7 +38,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input type="button" id="buttonToSwitchSignSizeToC" value="Switch to C"/>
     </span>
     <span id="versionName">
-        <p>Version 1.10</p>
+        <p>Version 1.21</p>
         <p>Developer: Timothy Dziedzic</p>
         <p>Contact: timothydziedzic@pricechopper.com</p>
     </span>
@@ -46,6 +50,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div id="recentSigns">
             
             </div>
+            
         </div>
         <div id="mainFormBoxes">
             <div id="formGroup">
@@ -148,10 +153,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <fieldset>
                 <legend>Overrides</legend>
                 <div id="overideButtons">
+                    <div>
                     <input type="radio" id="OverDisplay" name="toggleOver" value="On" onclick="toggleOn()" />
                     <label for="OverDisplay">On</label>
                     <input type="radio" id="OverDisplayOff" name="toggleOver" value="Off" onclick="toggleOff()" checked />
                     <label for="OverDisplayOff">Off</label>
+                    </div>
+                        <input type="button" value="Add Sign to Favories" id="addToFavories">
                 </div>
                 <div id="overides" style="display: none;">
                     <a><input id="mainPriceInput" placeholder="Price dollar" oninput="addPriceBefore()" /></a>
@@ -172,6 +180,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </fieldset>
                             <!--PRINT Button-->
                  <input id="printButton" type="button" value="Print"  onclick="window.print()" />
+            </div>
+        </div>
+<!--Favorites div-->
+        <div id="FavoritesOutDiv">
+            <h1>Favorites</h1>
+                        <span>Hold Ctrl + click to remove</span>
+            <div id="FavoritesSigns">
+            <!-- leave empty Script will add sign data in p hmtl tag-->
             </div>
         </div>
   

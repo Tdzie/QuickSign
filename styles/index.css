@@ -1,8 +1,15 @@
 
-#recentSigns > p:hover{
+#addToFavories{
+    height: 36px;
+}
+#overideButtons{
+    display: flex;
+    justify-content: space-between;
+}
+#recentSigns > p:hover, #FavoritesSigns > p:hover{
     background-color: #bfb;
 }
-#recentSigns > p {
+#recentSigns > p, #FavoritesSigns > p {
  border: 1px black solid;
  margin-top: 10px;
  margin-bottom: 10px;
@@ -22,7 +29,15 @@
     height: 505px;
     overflow-y: scroll;
 }
-#recentOutDiv{
+#FavoritesSigns {
+    margin-left: 10px;
+    margin-right: 25px;
+    width: 250px;
+    height: 495px;
+    overflow-y: scroll;
+}
+
+#recentOutDiv, #FavoritesOutDiv {
     display: flex;
     color: #4c4;
     flex-direction: column;
@@ -168,7 +183,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 1600px;
+    max-width: 1183px;
 
     align-content: space-around;
 }
@@ -326,7 +341,7 @@ div#outline > footer {
 }
 
 @media print {
-    #realHeader, #recentSigns, #formHeader, #mainFormBoxes, #recentOutDiv {
+    #realHeader, #recentSigns, #formHeader, #mainFormBoxes, #recentOutDiv, #FavoritesOutDiv {
         display: none;
     }
     body {
@@ -400,4 +415,5 @@ font-size: 17px;
 #printButton{
     width: 100%;
     height: 75px;
+    font-size: 1.5rem;
 }
