@@ -22,6 +22,11 @@ addToFavoritesButton.addEventListener('click', storeSignInformationForFavorites)
 
 // consts for get DOM elements for sign information
 
+    const sizePForErrorMessage = document.querySelector("#priceInputOuterDiv > div:nth-child(1) > p");
+    const retailPForErrorMessage = document.querySelector("#priceInputOuterDiv > div:nth-child(2) > p");
+    const pricePForErrorMessae = document.querySelector("#priceInputOuterDiv > div:nth-child(4) > p");
+
+
     const onSaleButton = document.getElementById("onSale");
     const offSaleButton = document.getElementById("notOnSale");
 
@@ -49,6 +54,8 @@ addToFavoritesButton.addEventListener('click', storeSignInformationForFavorites)
     const unitType50Button = document.getElementById('unitType50ct');
     const unitType100Button = document.getElementById('unitType100ct');
     const unitTypeOunceButton = document.getElementById('unitTypeOunce');
+    const unitType750mlButton = document.querySelector("#unitType750ml");
+    const unitType15lButton = document.querySelector("#unitType15l");
 
     const sizeInput = document.getElementById('size');
     const retailInput = document.getElementById('retailInput');
@@ -58,7 +65,15 @@ addToFavoritesButton.addEventListener('click', storeSignInformationForFavorites)
 
     const sumbitButton = document.getElementById('submitButton');
 
-// Create or load the recents signs from local storage.
+
+
+// events for onchange size/retail/price
+sizeInput.addEventListener('focusout', checkSizeForValidData);
+retailInput.addEventListener('focusout',checkRetailForValidData);
+priceInput.addEventListener('focusout',checkPriceForValidData);
+
+
+    // Create or load the recents signs from local storage.
 if(localStorage.getItem('signHistory') == null)
 {
     localStorage.setItem('signHistory', JSON.stringify(signHistoryArr));
@@ -78,6 +93,28 @@ else
 {
     let unparFavorites = localStorage.getItem('userFavorites');
     signFavortiesArr = JSON.parse(unparFavorites);
+}
+
+function resetInputBoxes(){
+
+    mainDescriptionInput.value = "";
+    altDescriptionInput.value = "";
+
+    if(bogoLayoutButton.checked == false){
+        priceInput.value = "";  
+        priceInput.style.backgroundColor = "white";
+    }
+
+    if(unitTypePoundButton.checked || unitTypeOunceButton.checked || unitType100Button.checked || unitType50Button.checked || unitTypeQuartButton.checked){
+        sizeInput.value = ""; 
+        sizeInput.style.backgroundColor = "white";   
+    }
+
+
+    retailInput.value = "";
+    retailInput.style.backgroundColor = "white";
+
+
 }
 
 
@@ -125,6 +162,8 @@ function storeSignInformation(){
     localStorage.setItem('signHistory',JSON.stringify(signHistoryArr));
 
     addToRecent();
+    
+    resetInputBoxes();
 }
 
 // Add sign to recent
@@ -222,7 +261,11 @@ function createSignFromHistory(){
         case "OUNCE":
             unitTypeOunceButton.click()
             break;
-    
+        case "750ml":
+            unitType750mlButton.click()
+            break;
+        case "15l":
+            unitType15lButton.click()
         default:
             break;
     }
@@ -391,7 +434,11 @@ function createSignFromFavorites(event){
         case "OUNCE":
             unitTypeOunceButton.click()
             break;
-    
+        case "750ml":
+            unitType750mlButton.click()
+            break;
+        case "15l":
+            unitType15lButton.click()
         default:
             break;
     }
@@ -433,7 +480,7 @@ function createSignFromFavorites(event){
     var unitTypeState = 1;
     // function to check unit type and run proper function
     function checkUnitState (a) {
-            if(a == 1){
+    if(a == 1){
         togglePound();
             }
     else if (a == 2){
@@ -447,18 +494,79 @@ function createSignFromFavorites(event){
             }
     else if (a == 5){
         toggle100ct();
-            }else if (a == 6){
+            }
+    else if (a == 6){
         toggleOunce();
+            }
+    else if (a == 7){
+        toggle750ml();
+            }
+    else if (a == 8){
+        toggle15l();
             }
         }
     // CODE FOR CHANGING UNIT TYPES
-
-    // TOGGLE EACH
-    function toggleEach() {
+    // ======================= TOGGLE 750mL ============================
+     function toggle750ml() {
+        document.querySelector("#size").value = 25.3605;
+        document.querySelector("#size").disabled = true;
         let bogoLayout = document.getElementById("boGoLayout").checked;
     let priceInput;
     if(bogoLayout){
-        priceInput = document.getElementById('retailInput').value;
+        priceInput = document.getElementById('retailInput').value / 2;
+	    }else{
+        priceInput = document.getElementById('price').value;
+	    }
+    let size = document.getElementById('size').value;
+    let amount = document.getElementById('forAmount').value;
+
+    if (priceInput % .25 == 0 && priceInput != 1) {
+        priceInput = priceInput / amount;
+            }
+
+    let a = (priceInput / size) * 32;
+    let final = a.toFixed(2);
+    unitPriceBox.innerHTML = final;
+    unitType.innerHTML = "PER QUART";
+    unitTypeState = 7;
+    checkSizeForValidData();
+        }
+
+        // ======================= TOGGLE 1.5l ===========================
+         function toggle15l() {
+            sizeInput.value = 50.72103;
+            document.querySelector("#size").disabled = true;
+        let bogoLayout = document.getElementById("boGoLayout").checked;
+    let priceInput;
+    if(bogoLayout){
+        priceInput = document.getElementById('retailInput').value / 2;
+	    }else{
+        priceInput = document.getElementById('price').value;
+	    }
+    let size = document.getElementById('size').value;
+    let amount = document.getElementById('forAmount').value;
+
+    if (priceInput % .25 == 0 && priceInput != 1) {
+        priceInput = priceInput / amount;
+            }
+
+    let a = (priceInput / size) * 32;
+    let final = a.toFixed(2);
+    unitPriceBox.innerHTML = final;
+    unitType.innerHTML = "PER QUART";
+    unitTypeState = 8;
+    checkSizeForValidData();
+        }
+
+    // =====================TOGGLE EACH====================================
+    function toggleEach() {
+        sizeInput.value = 1;
+        document.querySelector("#size").disabled = true;
+      
+        let bogoLayout = document.getElementById("boGoLayout").checked;
+    let priceInput;
+    if(bogoLayout){
+        priceInput = document.getElementById('retailInput').value / 2;
 	    }else{
         priceInput = document.getElementById('price').value;
 	    }
@@ -471,13 +579,15 @@ function createSignFromFavorites(event){
     unitPriceBox.innerHTML = final;
     unitType.innerHTML = "EACH";
     unitTypeState = 3;
+    checkSizeForValidData();
         }
-    // TOGGLE QUART
+    // ========================TOGGLE QUART==============================
     function toggleQuart() {
+        document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
     let priceInput;
     if(bogoLayout){
-        priceInput = document.getElementById('retailInput').value;
+        priceInput = document.getElementById('retailInput').value / 2;
 	    }else{
         priceInput = document.getElementById('price').value;
 	    }
@@ -494,12 +604,13 @@ function createSignFromFavorites(event){
     unitType.innerHTML = "PER QUART";
     unitTypeState = 2;
         }
-    // TOGGLE POUND
+    // ======================TOGGLE POUND============================
     function togglePound() {
+        document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
     let priceInput;
     if(bogoLayout){
-        priceInput = document.getElementById('retailInput').value;
+        priceInput = document.getElementById('retailInput').value / 2;
 	    }else{
         priceInput = document.getElementById('price').value;
 	    }
@@ -516,12 +627,13 @@ function createSignFromFavorites(event){
     unitType.innerHTML = "PER POUND";
     unitTypeState = 1;
         }
-    // TOGGLE 50 ct
+    // =======================TOGGLE 50 sq ft===============================
     function toggle50ct() {
+        document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
     let priceInput;
     if(bogoLayout){
-        priceInput = document.getElementById('retailInput').value;
+        priceInput = document.getElementById('retailInput').value / 2;
 	    }else{
         priceInput = document.getElementById('price').value;
 	    }
@@ -535,15 +647,16 @@ function createSignFromFavorites(event){
     let a = (priceInput / size) * 50;
     let final = a.toFixed(2);
     unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "PER 50 CT";
+    unitType.innerHTML = "PER 50 SQ FT";
     unitTypeState = 4;
         }
-    // TOGGLE 100 ct
+    // ========================TOGGLE 100 ct=======================
     function toggle100ct() {
+        document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
     let priceInput;
     if(bogoLayout){
-        priceInput = document.getElementById('retailInput').value;
+        priceInput = document.getElementById('retailInput').value / 2;
 	    }else{
         priceInput = document.getElementById('price').value;
 	    }
@@ -561,13 +674,14 @@ function createSignFromFavorites(event){
     unitTypeState = 5;
 
         }
-    // PER OUNCE
+    // ==================== TOGGLE PER OUNCE =======================
 
     function toggleOunce() {
+        document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
     let priceInput;
     if(bogoLayout){
-        priceInput = document.getElementById('retailInput').value;
+        priceInput = document.getElementById('retailInput').value / 2;
 	    }else{
         priceInput = document.getElementById('price').value;
 	    }
@@ -687,7 +801,7 @@ function createSignFromFavorites(event){
     document.getElementById("youSavePriceMainInput").className = "noSale";
     document.getElementById("youSavePriceAltInput").className = "noSale";
     document.getElementById("retailInput").className = "noSale";
-	    
+	document.querySelector("#pRetail").className = "noSale"; 
 
         }
     function myFunction1() {
@@ -703,7 +817,7 @@ function createSignFromFavorites(event){
             var x = document.getElementById("advCardDiv");
     // If "mystyle" exist, overwrite it with "mystyle2"
     if (x.className === "noSale") {
-        x.className = "sale";
+        x.className = "sale";.00
             } else {
         x.className = "sale";
             }
@@ -771,8 +885,9 @@ function createSignFromFavorites(event){
         x.className = "sale";
             }
         }
-        function myFunction1() {
-            var x = document.getElementById("whenYouBuy");
+
+function myFunction10() {
+            var x = document.querySelector("#pRetail");
     // If "mystyle" exist, overwrite it with "mystyle2"
     if (x.className === "noSale") {
         x.className = "sale";
@@ -790,6 +905,7 @@ function createSignFromFavorites(event){
     myFunction7();
     myFunction8();
     myFunction9();
+    myFunction10();
         }
 
 
@@ -808,41 +924,78 @@ function createSignFromFavorites(event){
     }
     }
 
-
-    // FUNCTION TO CHECK THE TYPE OF PRICE AND RUN AUTO FILLS
-    function pickTypeOfPrice() {
-        
+  // Function to check of inputs are valid for size, retail, and price
+function checkSizeForValidData(){
         if(isNaN(sizeInput.value) || sizeInput.value == "")
         {
             sizeInput.value = "";
-            sizeInput.style.backgroundColor = "red";
-        }
-        else if(isNaN(retailInput.value) || retailInput.value == "" && onSaleButton.checked)
-        {
-            retailInput.value = "";
-            retailInput.style.backgroundColor = "red";
-        }
-        else if (priceErrorCheck(priceInput.value))
-        {
-                priceInput.value = ""; 
-                priceInput.style.background = "red";
+            sizeInput.style.backgroundColor = "#FF8E8E";
+            sizePForErrorMessage.innerHTML = "Required:<br> Numbers Only";
+            sizePForErrorMessage.style.color = "Red";
+            return false;
         }
         else
         {
+            sizeInput.style.backgroundColor = "#E4FFA0";
+            sizePForErrorMessage.innerHTML = "Numbers Only: <br> 888 or 8.88";
+            sizePForErrorMessage.style.color = "#4c4";
+            
+            return true;
+                
+        }
+    }
 
-      sizeInput.style.backgroundColor = "white";
-      retailInput.style.backgroundColor = "white";
-      priceInput.style.backgroundColor = "white";
-        
-      retailInput.value = alterPriceAddDecimal(retailInput.value);
+function checkRetailForValidData(){
+ if(isNaN(retailInput.value) || retailInput.value == "" && onSaleButton.checked)
+        {
+            retailInput.value = "";
+            retailInput.style.backgroundColor = "#FF8E8E";
+            retailPForErrorMessage.innerHTML = "Required:<br> Numbers Only";
+            retailPForErrorMessage.style.color = "Red";
+            return false;
+        }
+        else{
+            retailPForErrorMessage.innerHTML = "Numbers Only: <br> 888 or 8.88";
+            retailPForErrorMessage.style.color = "#4c4";
+            retailInput.value = alterPriceAddDecimal(retailInput.value);
+            retailInput.style.backgroundColor = "#E4FFA0";
+              retailOnSign.innerHTML = retailInput.value;
+            return true;
+        }
+}
 
-      retailOnSign.innerHTML = retailInput.value;
 
-      if(priceInput.value != "bogo"){
-        priceInput.value = alterPriceAddDecimal(priceInput.value)
-      }
+function checkPriceForValidData(){
+ if (priceErrorCheck(priceInput.value))
+        {
+                priceInput.value = ""; 
+                priceInput.style.backgroundColor = "#FF8E8E";
+                pricePForErrorMessae.innerHTML = "Required:<br> Numbers Only";
+                pricePForErrorMessae.style.color = "Red";
+                return false;
+        }
+        else{
+            pricePForErrorMessae.innerHTML = "Numbers Only: <br> 888 or 8.88";
+            pricePForErrorMessae.style.color = "#4c4";
+            priceInput.style.backgroundColor = "#E4FFA0";
+            if(priceInput.value != "bogo"){
+                 priceInput.value = alterPriceAddDecimal(priceInput.value)
+             }
    
 
+
+       
+            return true;
+        }
+}
+
+    // FUNCTION TO CHECK THE TYPE OF PRICE AND RUN AUTO FILLS
+    function pickTypeOfPrice() {
+        if(checkSizeForValidData() && checkRetailForValidData() && checkPriceForValidData()){
+ 
+        if(altDescriptionInput.value == ""){
+            altDescriptionSign.innerText = " ";
+        }
 
        
         //=================== 
@@ -995,7 +1148,12 @@ function createSignFromFavorites(event){
     youSaveDollars();
             }
 
-    document.getElementById("whenYouBuy").style.cssText = "visibility:visible;";
+     if(document.querySelector("#onSale").checked){
+        document.getElementById("whenYouBuy").style.cssText = "visibility:visible;";
+     }else{
+        document.getElementById("whenYouBuy").style.cssText = "visibility:hidden;";
+     }
+
     priceBeforeDecimal.innerHTML = amount+"/";
     unitPriceBox.innerHTML = final;
     priceAfterDecimal.innerHTML = "$";
@@ -1165,6 +1323,7 @@ function createSignFromFavorites(event){
     let priceBox = document.getElementById("price");
     priceBox.value = "bogo";
     priceBox.disabled = true;
+    checkPriceForValidData();
 
         }
     // LAYOUT FUNCTIONS FOR YOU SAVE
