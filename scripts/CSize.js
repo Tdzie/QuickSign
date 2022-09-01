@@ -68,6 +68,31 @@ sizeInput.addEventListener('focusout', checkSizeForValidData);
 retailInput.addEventListener('focusout',checkRetailForValidData);
 priceInput.addEventListener('focusout',checkPriceForValidData);
 
+// ============================function to make clicking inputs highlight the entire box =========================================
+priceInput.addEventListener('click', function(){this.select();})
+retailInput.addEventListener('click', function(){this.select();})
+sizeInput.addEventListener('click', function(){this.select();})
+
+// ============================ function to get the date for this saturday used for value of sale date input and date on sign ============
+//  
+function getSaturdayOfCurrentWeek() {
+  const today = new Date();
+  const monday = today.getDate() - today.getDay() + 1;
+  const sixth = monday + 5;
+
+  const saturday = new Date(today.setDate(sixth));
+  const formatSaturday = saturday.toLocaleDateString("en-US");
+  return formatSaturday;
+}
+
+// This function is called during window.load at the bottom of the file.
+function addWeekEndingSaleDate(){
+let saturday = getSaturdayOfCurrentWeek();
+
+    saleDateInput.value = `ON SALE THRU ${saturday}`;
+    saleDateDescriptionSign.innerHTML = `ON SALE THRU ${saturday}`;
+}
+// ===================================================End======================================================================
 // Create or load the recents signs from local storage.
 if(localStorage.getItem('signHistory') == null)
 {
@@ -109,6 +134,11 @@ function resetInputBoxes(){
 
     retailInput.value = "";
     retailInput.style.backgroundColor = "white";
+
+    pricePForErrorMessae.innerHTML = `Enter sale price`;
+    retailPForErrorMessage.innerHTML = `Enter retail price`;
+    sizePForErrorMessage.innerHTML = `Enter size of product`;
+    
 
 
 }
@@ -212,8 +242,8 @@ function createSignFromHistory(){
     mainDescriptionSign.innerHTML = signInformation[2];
     altDescriptionInput.value = signInformation[3];
     altDescriptionSign.innerHTML = signInformation[3];
-    saleDateInput.value = signInformation[4];
-    saleDateDescriptionSign.innerHTML = signInformation[4];
+    addWeekEndingSaleDate();
+
     // price layouts
     switch (signInformation[5]) {
         case 'cents':
@@ -383,8 +413,7 @@ function createSignFromFavorites(event){
     mainDescriptionSign.innerHTML = signInformation[2];
     altDescriptionInput.value = signInformation[3];
     altDescriptionSign.innerHTML = signInformation[3];
-    saleDateInput.value = signInformation[4];
-    saleDateDescriptionSign.innerHTML = signInformation[4];
+    addWeekEndingSaleDate();
     // price layouts
     switch (signInformation[5]) {
         case 'cents':
@@ -952,14 +981,14 @@ function checkSizeForValidData(){
         {
             sizeInput.value = "";
             sizeInput.style.backgroundColor = "#FF8E8E";
-            sizePForErrorMessage.innerHTML = "Required:<br> Numbers Only";
+            sizePForErrorMessage.innerHTML = `\u274C Required:<br> Numbers Only`;
             sizePForErrorMessage.style.color = "Red";
             return false;
         }
         else
         {
             sizeInput.style.backgroundColor = "#E4FFA0";
-            sizePForErrorMessage.innerHTML = "Numbers Only: <br> 888 or 8.88";
+            sizePForErrorMessage.innerHTML = "\u2713";
             sizePForErrorMessage.style.color = "#4c4";
             
             return true;
@@ -972,12 +1001,12 @@ function checkRetailForValidData(){
         {
             retailInput.value = "";
             retailInput.style.backgroundColor = "#FF8E8E";
-            retailPForErrorMessage.innerHTML = "Required:<br> Numbers Only";
+            retailPForErrorMessage.innerHTML = `\u274C Required:<br> Numbers Only`;
             retailPForErrorMessage.style.color = "Red";
             return false;
         }
         else{
-            retailPForErrorMessage.innerHTML = "Numbers Only: <br> 888 or 8.88";
+            retailPForErrorMessage.innerHTML = "\u2713";
             retailPForErrorMessage.style.color = "#4c4";
             retailInput.value = alterPriceAddDecimal(retailInput.value);
             retailInput.style.backgroundColor = "#E4FFA0";
@@ -992,12 +1021,18 @@ function checkPriceForValidData(){
         {
                 priceInput.value = ""; 
                 priceInput.style.backgroundColor = "#FF8E8E";
-                pricePForErrorMessae.innerHTML = "Required:<br> Numbers Only";
+                pricePForErrorMessae.innerHTML = `\u274C Required:<br> Numbers Only`;
                 pricePForErrorMessae.style.color = "Red";
                 return false;
         }
         else{
-            pricePForErrorMessae.innerHTML = "Numbers Only: <br> 888 or 8.88";
+               if(forOneLayoutButton.checked){
+                priceInput.value = priceInput.value.slice(0,1)
+            }
+            if(forTwoLayoutButton.checked){
+                priceInput.value = priceInput.value.slice(0,2);
+            }
+            pricePForErrorMessae.innerHTML = "\u2713";
             pricePForErrorMessae.style.color = "#4c4";
             priceInput.style.backgroundColor = "#E4FFA0";
             if(priceInput.value != "bogo"){
@@ -1020,8 +1055,6 @@ function checkPriceForValidData(){
             altDescriptionSign.innerText = " ";
         }
        
-
-    
 
 
 
@@ -1341,5 +1374,6 @@ function checkPriceForValidData(){
         window.onload = (event) => {
     addToRecent();
     addToFavorites();
+    addWeekEndingSaleDate();
     
 };

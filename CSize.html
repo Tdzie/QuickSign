@@ -45,7 +45,7 @@
         <input type="button" id="buttonToSwitchSignSizeToB" value="Switch to B"/>
     </span>
     <span id="versionName">
-        <p>Version 1.24</p>
+        <p>Version 1.25</p>
         <p>Developer: Timothy Dziedzic</p>
         <p>Contact: timothydziedzic@pricechopper.com</p>
     </span>
@@ -139,12 +139,12 @@
             <legend>Price Inputs</legend>
             <div id="priceInputOuterDiv">
                 <div>
-                    <input id="size" type="text" style="width:150px;" placeholder="Size of product" />
-                    <p>Numbers Only: <br> 888 or 8.88 </p>
+                    <input id="size" type="text" style="width:150px;" placeholder="Size" />
+                    <p>Enter size of product</p>
                 </div>
                 <div>
-                    <input id="retailInput" type="text" oninput="addRetail()" placeholder="Retail Price" style="width:150px;" />
-                    <p id="pRetail">Numbers Only: <br> 888 or 8.88</p>
+                    <input id="retailInput" type="text" oninput="addRetail()" placeholder="Retail" style="width:150px;" />
+                    <p id="pRetail">Enter retail price</p>
                 </div>
                 <select name="" id="forAmount" style="visibility:hidden;">
                     <option value="2">2</option>
@@ -160,7 +160,7 @@
                 </select>
                 <div>
                     <input id="price" style="width:100px;" placeholder=" Sale Price" type="text" />
-                    <p>Numbers Only: <br> 888 or 8.88</p>
+                    <p>Enter sale price</p>
                 </div>
                 <input type="button" id="submitButton" value="Submit" style="height:50px;" onclick="pickTypeOfPrice()">
             </div>
