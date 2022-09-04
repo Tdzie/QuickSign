@@ -90,7 +90,7 @@ function getSaturdayOfCurrentWeek() {
 // This function is called during window.load at the bottom of the file.
 function addWeekEndingSaleDate(){
 let saturday = getSaturdayOfCurrentWeek();
-    let retailOnSign = document.getElementById('retail'+ signGridNumber);
+    let retailOnSign = document.getElementById('saleDate'+ signGridNumber);
     saleDateInput.value = `ON SALE THRU ${saturday}`;
     retailOnSign.innerHTML = `ON SALE THRU ${saturday}`;
 }
@@ -1077,7 +1077,7 @@ function checkPriceForValidData(){
 
     altDescriptionSign.innerText = altDescriptionInput.value;
     mainDescriptionSign.innerText = mainDescriptionInput.value;
-        
+    addWeekEndingSaleDate();
        
 
 
