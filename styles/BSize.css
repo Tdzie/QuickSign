@@ -5,12 +5,14 @@
 }
 #priceInputOuterDiv > div > p{
     color:#4c4;
-    margin-top: 5px;
+     margin-top: 5px;
     margin-bottom: 0px;
 
-
 }
-
+#realHeader > span {
+    display: flex;
+    flex-direction: column;
+}
 
 
 #addToFavories{
@@ -20,12 +22,10 @@
     display: flex;
     justify-content: space-between;
 }
-#recentSigns > p:hover,
-#FavoritesSigns>p:hover{
+#recentSigns > p:hover, #FavoritesSigns > p:hover{
     background-color: #bfb;
 }
-#recentSigns > p,
-#FavoritesSigns > p {
+#recentSigns > p, #FavoritesSigns > p {
  border: 1px black solid;
  margin-top: 10px;
  margin-bottom: 10px;
@@ -36,6 +36,7 @@
  border-radius: 5px;
  color: black;
  min-height: 50px;
+
 }
 #recentSigns {
     margin-left: 10px;
@@ -52,34 +53,31 @@
     overflow-y: scroll;
 }
 
-#recentOutDiv,
-#FavoritesOutDiv{
+#recentOutDiv, #FavoritesOutDiv {
     display: flex;
-    color: #4c4;outline: e;
+    color: #4c4;
     flex-direction: column;
     align-items: center;
 }
-#buttonToSwitchSignSizeToB, #buttonToSwitchSignSizeToD{
+#buttonToSwitchSignSizeToC, #buttonToSwitchSignSizeToD{
     width: 100%;
 }
-
 #realHeader {
     width: 100%;
-    margin-bottom: 30px;
     padding: 5px;
     background-color: #444;
     border: solid whitesmoke 2px;
     display: flex;
     justify-content: space-between;
- 
-}
-#versionName > p {
-        margin: 5px;
+    margin-bottom: 30px;
 }
 #versionName{
     font-size: 1.2em;
     color: #4c4;
-    
+
+}
+#versionName > p {
+        margin: 5px;
 }
 #CurrentSignSize{
     font-size: 1.8em;
@@ -95,6 +93,16 @@ fieldset > legend {
     color: #7BBA2F;
     font-weight: bold;
     font-size: 1.2em;
+}
+
+#mustBuy {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+#LBOption {
+    position: relative;
+    top: -2px;
 }
 
 fieldset {
@@ -130,7 +138,6 @@ input[type="text"] {
     height: 20px;
 }
 
-
 div#choosePriceType input[type="radio"], div#onOff input[type="radio"], div#chooseUnitType input[type="radio"], div#overideButtons input[type="radio"] {
     opacity: 0;
     position: fixed;
@@ -162,36 +169,46 @@ div#choosePriceType label:hover, div#onOff label:hover, div#chooseUnitType label
     cursor: pointer;
 }
 
+#whenYouBuy {
+    color: white;
+    font-size: 18px;
+    font-stretch: condensed;
+}
+
 #youSaveImg > a {
     overflow: visible;
 }
 
 #youSaveImg {
     display: grid;
-    grid-template-columns: 52px 42px 37px 38px;
+    grid-template-columns: 78px 80px 60px 57px;
 }
 
 #youSaveR {
-    height: 42px;
+    height: 60px;
 }
 
 html {
     background-color: #24180D;
-        display: flex;
+    display: flex;
     justify-content: center;
 }
 
-body > header {
-    display: grid;
-    grid-template-rows: 1fr repeat(12);
-    width: 640px;
-    margin-bottom: 30px;
+body {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1250px;
+
+    align-content: space-around;
 }
+
 
 #outline {
     background-color: yellow;
-    height: 377px;
-    width: 517px;
+    height: 650px;
+    width: 750px;
     display: grid;
     grid-template-areas:
         "a"
@@ -199,16 +216,14 @@ body > header {
         "c"
         "d";
     grid-template-rows: 17% 23% 39% 21%;
-    margin-top: 25px;
-    margin-left: 130px;
 }
 /* header */
 div#outline > header {
     background-color: black;
     color: white;
     text-align: center;
-    font-size: 30px;
-    padding: 2px;
+    font-size: 50px;
+    padding: 6px;
     font-weight: bold;
     grid-area: a;
 }
@@ -222,38 +237,30 @@ div#outline > header {
     height: 0px;
 }
 
-body {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    align-content: space-around;
-    max-width: 1250px;
-}
-
 #mainDescription {
-    font-size: 19px;
-    padding-left: 2px;
-    padding-top: 10px;
+    font-size: 35px;
+    padding-left: 10px;
+    padding-top: 30px;
     font-family: Clarendon, serif;
-    width: 414px;
+    width: 600px;
     font-weight: lighter;
 }
 
 #altDescription {
-    font-size: 14px;
-    padding-left: 2px;
-    height: 8px;
-    width: 414px;
+    font-size: 17px;
+    padding-left: 10px;
+    height: 15px;
+    font-weight: 100;
+    width: 600px;
     font-family: Trade Gothic, serif;
     font-weight: lighter;
-    padding-top: 5px;
 }
 
 #saleDate {
-    font-size: 10px;
-    padding-left: 3px;
-    padding-top: 14px;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-top: 30px;
+    height: 15px;
 }
 /* Price box */
 #price {
@@ -262,76 +269,81 @@ body {
     font-weight: bold;
 }
 
+#mustBuy {
+    font-size: 1.5em;
+}
+
 #priceBeforeDecimal {
-    font-size: 162px;
-    margin-top: -51px;
+    font-size: 320px;
+    margin-top: -73px;
     padding-top: 0px;
     float: left;
     text-align: right;
-    width: 69%;
-    height: 120px;
+    width: 75%;
+    height: 200px;
+    font-weight: bold;
 }
 
 #priceAfterDecimal {
-    font-size: 100px;
+    font-size: 170px;
     float: right;
-    width: 31%;
-    margin-top: -35px;
+    width: 25%;
+    margin-top: -29px;
+    font-weight: bold;
 }
 /* footer */
 div#outline > footer {
     grid-area: d;
     display: grid;
-    grid-template-columns: 125px auto;
+    grid-template-columns: 220px auto;
     grid-template-rows: auto;
     font-family: Rockwell, serif;
+    overflow: hidden;
     font-weight: bold;
 }
 
 #unitBox {
     text-align: center;
+    margin-top: 12px;
 }
 
 #unitPriceBox {
-    font-size: 25px;
+    font-size: 60px;
 }
 
 #unitType {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: normal;
 }
 
 #unitBox > a {
-    margin-top: 26px;
+    margin-top: 44px;
 }
 
-
-
-#whenYouBuy {
-    color: white;
-    font-size: 13px !important;
-    font-stretch: condensed;
+#rightBox {
+    padding-left: 12px;
+    position: relative;
+    margin-top: -4px;
 }
 
 #youSavePriceMain {
     color: white;
-    font-size: 39px;
+    font-size: 60px;
     text-align: right;
-    margin-top: -4px;
+    margin-top: -6px;
 }
 
 #youSavePriceAlt {
     color: white;
-    font-size: 20px;
-    padding-left: 2px;
+    font-size: 36px;
 }
 
 #retail {
     display: inline-block;
-    font-size: 14px;
+    font-size: 21px;
     position: absolute;
-    left: 263px;
-    top: -2px;
+    left: 452px;
+    top: -4px;
     font-family: Rockwell, serif;
 }
 
@@ -348,8 +360,29 @@ div#outline > footer {
     #realHeader, #recentSigns, #formHeader, #mainFormBoxes, #recentOutDiv, #FavoritesOutDiv {
         display: none;
     }
-    div#outline {
-        margin-top: -27px;
+    body {
+        margin-top: -4px;
+    }
+
+    #rightBox {
+        margin-left: 12px;
+    }
+
+    #priceBeforeDecimal {
+        margin-left: -5px;
+    }
+
+    #mainDescription {
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    #altDescription {
+        margin-left: 10px;
+    }
+
+    #saleDate {
+        margin-left: 10px;
     }
 
     body > header {
@@ -364,6 +397,7 @@ div#outline > footer {
         -webkit-print-color-adjust: exact;
         color: #ffffff;
     }
+
 }
 
 .noSale {
@@ -382,15 +416,6 @@ div#outline > footer {
     float: right;
 }
 
-#mustBuy {
-    display: grid;
-    grid-template-columns: 80% 20%;
-}
-
-#LBOption {
-    position: relative;
-    top: -33px;
-}
 #priceInputOuterDiv > input, select {
 height: 25px;
 font-size: 17px;
@@ -400,6 +425,7 @@ font-size: 17px;
 #formHeader{
     display: flex;
     width: auto;
+    margin-right: 10px;
 
 }
 #printButton{
@@ -407,6 +433,3 @@ font-size: 17px;
     height: 75px;
     font-size: 1.5rem;
 }
-
-
-

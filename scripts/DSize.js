@@ -5,9 +5,13 @@ const favoriteSigns = document.getElementById('FavoritesSigns');
 const addToFavoritesButton = document.querySelector("#addToFavories")
 
 
+
 let currentSignCount = 0;
 let signHistoryArr = [];
 let signFavortiesArr = [];
+
+// Global variable for sign number
+let signGridNumber = 1;
 
 
 // Number of signs kept in recent and favorites
@@ -35,10 +39,7 @@ addToFavoritesButton.addEventListener('click', storeSignInformationForFavorites)
     const altDescriptionInput = document.getElementById("altDesInput");
     const saleDateInput = document.getElementById("saleDateInput");
 
-    const mainDescriptionSign = document.getElementById('mainDescription');
-    const altDescriptionSign = document.getElementById('altDescription');
-    const saleDateDescriptionSign = document.getElementById('saleDate');
-
+   
     const centsLayoutButton = document.getElementById("centsLayout");
     const dollarCentsLayoutButton = document.getElementById("dolCenLayout");
     const forOneLayoutButton = document.getElementById("forLayout");
@@ -57,7 +58,7 @@ addToFavoritesButton.addEventListener('click', storeSignInformationForFavorites)
 
     const sizeInput = document.getElementById('size');
     const retailInput = document.getElementById('retailInput');
-    const retailOnSign = document.getElementById('retail');
+
     const forAmountInput = document.getElementById('forAmount');
     const priceInput = document.getElementById('price');
 
@@ -76,6 +77,7 @@ sizeInput.addEventListener('click', function(){this.select();})
 // ============================ function to get the date for this saturday used for value of sale date input and date on sign ============
 //  
 function getSaturdayOfCurrentWeek() {
+	
   const today = new Date();
   const monday = today.getDate() - today.getDay() + 1;
   const sixth = monday + 5;
@@ -88,11 +90,22 @@ function getSaturdayOfCurrentWeek() {
 // This function is called during window.load at the bottom of the file.
 function addWeekEndingSaleDate(){
 let saturday = getSaturdayOfCurrentWeek();
-
+    let retailOnSign = document.getElementById('retail'+ signGridNumber);
     saleDateInput.value = `ON SALE THRU ${saturday}`;
-    saleDateDescriptionSign.innerHTML = `ON SALE THRU ${saturday}`;
+    retailOnSign.innerHTML = `ON SALE THRU ${saturday}`;
 }
 // ===================================================End======================================================================
+
+// 
+ const gridButtons = document.getElementsByName("signGridButtons");
+ gridButtons.forEach(element => {element.addEventListener("click", gridNumbers)});
+
+
+
+ function gridNumbers(){
+    signGridNumber = this.value;
+   
+ }
 // Create or load the recents signs from local storage.
 if(localStorage.getItem('signHistory') == null)
 {
@@ -212,6 +225,10 @@ function addToRecent(){
 
 
 function createSignFromHistory(){
+    let mainDescriptionSign = document.getElementById('mainDescription'+ signGridNumber);
+    let altDescriptionSign = document.getElementById('altDescription'+ signGridNumber);
+    let saleDateDescriptionSign = document.getElementById('saleDate'+ signGridNumber);
+    let retailOnSign = document.getElementById('retail'+ signGridNumber);
 
     let signInformation = signHistoryArr[this.value];
 
@@ -374,7 +391,12 @@ function addToFavorites(){
 
 // This function loads the sign information from the user favorites
 function createSignFromFavorites(event){
-
+    let mainDescriptionSign = document.getElementById('mainDescription'+ signGridNumber);
+    let altDescriptionSign = document.getElementById('altDescription'+ signGridNumber);
+    let saleDateDescriptionSign = document.getElementById('saleDate'+ signGridNumber);
+    let retailOnSign = document.getElementById('retail'+ signGridNumber);
+	
+	
     let signInformation = signFavortiesArr[this.value];
 
     if(event.ctrlKey){
@@ -486,11 +508,11 @@ function createSignFromFavorites(event){
 	// Event handlers for toggle of LB on sign
     // Hide the LB div
     document.getElementById("LBNotVisible").onclick = function() {
-        document.getElementById("LBOption").style.display = 'none';
+        document.getElementById("LBOption" + signGridNumber).style.display = 'none';
 	};
     // Show the LB div
     document.getElementById("LBVisible").onclick = function() {
-        document.getElementById("LBOption").style.display = 'initial';
+        document.getElementById("LBOption" + signGridNumber).style.display = 'initial';
 	};
 
 
@@ -548,8 +570,8 @@ function createSignFromFavorites(event){
 
     let a = (priceInput / size) * 32;
     let final = a.toFixed(2);
-    unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "PER QUART";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("unitType" + signGridNumber).innerHTML = "PER QUART";
     unitTypeState = 7;
     checkSizeForValidData();
         }
@@ -574,8 +596,8 @@ function createSignFromFavorites(event){
 
     let a = (priceInput / size) * 32;
     let final = a.toFixed(2);
-    unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "PER QUART";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("unitType" + signGridNumber).innerHTML = "PER QUART";
     unitTypeState = 8;
     checkSizeForValidData();
         }
@@ -600,8 +622,8 @@ function createSignFromFavorites(event){
             }
     let num = parseFloat(priceInput);
     let final = num.toFixed(2);
-    unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "EACH";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("unitType" + signGridNumber).innerHTML = "EACH";
     unitTypeState = 3;
     checkSizeForValidData();
         }
@@ -624,8 +646,8 @@ function createSignFromFavorites(event){
 
     let a = (priceInput / size) * 32;
     let final = a.toFixed(2);
-    unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "PER QUART";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("unitType" + signGridNumber).innerHTML = "PER QUART";
     unitTypeState = 2;
         }
     // ====================TOGGLE POUND======================
@@ -647,9 +669,9 @@ function createSignFromFavorites(event){
 
     let a = (priceInput / size) * 16;
     let final = a.toFixed(2);
-    unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "PER POUND";
-    unitTypeState = 1;
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("unitType" + signGridNumber).innerHTML = "PER POUND";
+    unitTypeState= 1;
         }
     // ==========================TOGGLE 50 ct==========================
     function toggle50ct() {
@@ -670,9 +692,9 @@ function createSignFromFavorites(event){
 
     let a = (priceInput / size) * 50;
     let final = a.toFixed(2);
-    unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "PER 50 SQ FT";
-    unitTypeState = 4;
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("unitType" + signGridNumber).innerHTML = "PER 50 SQ FT";
+    unitTypeState= 4;
         }
     // =====================TOGGLE 100 ct=====================================
     function toggle100ct() {
@@ -692,9 +714,9 @@ function createSignFromFavorites(event){
 
     let a = (priceInput / size) * 100;
     let final = a.toFixed(2);
-    unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "PER 100 CT";
-    unitTypeState = 5;
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("unitType" + signGridNumber).innerHTML = "PER 100 CT";
+    unitTypeState= 5;
 
         }
     // =======================PER OUNCE============================
@@ -717,9 +739,9 @@ function createSignFromFavorites(event){
 
     let a = (priceInput / size);
     let final = a.toFixed(2);
-    unitPriceBox.innerHTML = final;
-    unitType.innerHTML = "PER OUNCE";
-    unitTypeState = 6;
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("unitType" + signGridNumber).innerHTML = "PER OUNCE";
+    unitTypeState= 6;
         }
     // ======================OVERIDES TOGGLE============================
     function toggleOff() {
@@ -731,67 +753,67 @@ function createSignFromFavorites(event){
 
     function addMain() {
         let userInput = document.querySelector("#mainDesInput");
-    let mainDescription = document.getElementById('mainDescription');
+    let mainDescription = document.getElementById('mainDescription'+ signGridNumber);
 
     mainDescription.innerHTML = userInput.value;
         }
     function addAlt() {
         let userAlt = document.getElementById('altDesInput');
-    let altDescription = document.getElementById('altDescription');
+    let altDescription = document.getElementById('altDescription'+ signGridNumber);
 
     altDescription.innerHTML = userAlt.value;
         }
     function addDate() {
         let saleDateInput = document.getElementById('saleDateInput');
-    let saleDate = document.getElementById('saleDate');
+    let saleDate = document.getElementById('saleDate'+ signGridNumber);
 
     saleDate.innerHTML = saleDateInput.value;
         }
     function addPriceBefore() {
         let mainPriceInput = document.getElementById('mainPriceInput');
-    let priceBeforeDecimal = document.getElementById('priceBeforeDecimal');
+    let priceBeforeDecimal = document.getElementById('priceBeforeDecimal'+ signGridNumber);
 
     priceBeforeDecimal.innerHTML = mainPriceInput.value;
         }
     function addPriceAfter() {
         let altPriceInput = document.getElementById('altPriceInput');
-    let priceAfterDecimal = document.getElementById('priceAfterDecimal');
+    let priceAfterDecimal = document.getElementById('priceAfterDecimal'+ signGridNumber);
 
     priceAfterDecimal.innerHTML = altPriceInput.value;
         }
     function addUnitPrice() {
         let unitPriceInput = document.getElementById('unitPriceInput');
-    let unitPriceBox = document.getElementById('unitPriceBox');
+    let unitPriceBox = document.getElementById('unitPriceBox'+ signGridNumber);
 
     unitPriceBox.innerHTML = unitPriceInput.value;
         }
     function addUnitType() {
         let unitTypeInput = document.getElementById('unitTypeInput');
-    let unitType = document.getElementById('unitType');
+    let unitType = document.getElementById('unitType'+ signGridNumber);
 
     unitType.innerHTML = unitTypeInput.value;
         }
     function addMustBuy() {
         let MustBuyInput = document.getElementById('MustBuyInput');
-    let mustBuy = document.getElementById('MustBuyInner');
+    let mustBuy = document.getElementById('MustBuyInner'+ signGridNumber);
 
     mustBuy.innerHTML = MustBuyInput.value;
         }
     function addYouSaveMain() {
         let youSavePriceMainInput = document.getElementById('youSavePriceMainInput');
-    let youSavePriceMain = document.getElementById('youSavePriceMain');
+    let youSavePriceMain = document.getElementById('youSavePriceMain'+ signGridNumber);
 
     youSavePriceMain.innerHTML = youSavePriceMainInput.value;
         }
     function addYouSaveAlt() {
         let youSavePriceAltInput = document.getElementById('youSavePriceAltInput');
-    let youSavePriceAlt = document.getElementById('youSavePriceAlt');
+    let youSavePriceAlt = document.getElementById('youSavePriceAlt'+ signGridNumber);
 
     youSavePriceAlt.innerHTML = youSavePriceAltInput.value;
         }
     function addRetail() {
         let retailInput = document.getElementById('retailInput');
-    let retail = document.getElementById('retail');
+    let retail = document.getElementById('retail'+ signGridNumber);
 
     retail.innerHTML = retailInput.value;
         }
@@ -811,10 +833,10 @@ function createSignFromFavorites(event){
         }
     // ON SALE / OFF SALE TOGGLE
     function noSale() {
-        document.getElementById("whenYouBuy").className = "noSale";
-    document.getElementById("advCardDiv").className = "noSale";
-    document.getElementById("youSaveBoxDiv").className = "noSale";
-    document.getElementById("saleDate").className = "noSale";
+        document.getElementById("whenYouBuy"+ signGridNumber).className = "noSale";
+    document.getElementById("advCardDiv"+ signGridNumber).className = "noSale";
+    document.getElementById("youSaveBoxDiv"+ signGridNumber).className = "noSale";
+    document.getElementById("saleDate"+ signGridNumber).className = "noSale";
     document.getElementById("saleDateInput").className = "noSale";
     document.getElementById("MustBuyInput").className = "noSale";
     document.getElementById("youSavePriceMainInput").className = "noSale";
@@ -824,7 +846,7 @@ function createSignFromFavorites(event){
 
         }
     function myFunction1() {
-            var x = document.getElementById("whenYouBuy");
+            var x = document.getElementById("whenYouBuy"+ signGridNumber);
     // If "mystyle" exist, overwrite it with "mystyle2"
     if (x.className === "noSale") {
         x.className = "sale";
@@ -833,7 +855,7 @@ function createSignFromFavorites(event){
             }
         }
     function myFunction2() {
-            var x = document.getElementById("advCardDiv");
+            var x = document.getElementById("advCardDiv"+ signGridNumber);
     // If "mystyle" exist, overwrite it with "mystyle2"
     if (x.className === "noSale") {
         x.className = "sale";
@@ -842,7 +864,7 @@ function createSignFromFavorites(event){
             }
         }
     function myFunction3() {
-            var x = document.getElementById("youSaveBoxDiv");
+            var x = document.getElementById("youSaveBoxDiv"+ signGridNumber);
     // If "mystyle" exist, overwrite it with "mystyle2"
     if (x.className === "noSale") {
         x.className = "sale";
@@ -851,7 +873,7 @@ function createSignFromFavorites(event){
             }
         }
     function myFunction4() {
-            var x = document.getElementById("saleDate");
+            var x = document.getElementById("saleDate"+ signGridNumber);
     // If "mystyle" exist, overwrite it with "mystyle2"
     if (x.className === "noSale") {
         x.className = "sale";
@@ -1010,6 +1032,7 @@ function checkRetailForValidData(){
             retailPForErrorMessage.style.color = "#4c4";
             retailInput.value = alterPriceAddDecimal(retailInput.value);
             retailInput.style.backgroundColor = "#E4FFA0";
+              let retailOnSign = document.getElementById('retail' + signGridNumber);
               retailOnSign.innerHTML = retailInput.value;
             return true;
         }
@@ -1048,12 +1071,13 @@ function checkPriceForValidData(){
 
     // FUNCTION TO CHECK THE TYPE OF PRICE AND RUN AUTO FILLS
     function pickTypeOfPrice() {
-    
+    let altDescriptionSign = document.getElementById('altDescription'+ signGridNumber);
+    let mainDescriptionSign = document.getElementById('mainDescription'+ signGridNumber);
     if(checkSizeForValidData() && checkRetailForValidData() && checkPriceForValidData()){
 
-        if(altDescriptionInput.value == ""){
-            altDescriptionSign.innerText = " ";
-        }
+    altDescriptionSign.innerText = altDescriptionInput.value;
+    mainDescriptionSign.innerText = mainDescriptionInput.value;
+        
        
 
 
@@ -1085,7 +1109,8 @@ function checkPriceForValidData(){
 
     // AUTO FILL FUNCTIONS
     //  CENTS
-    function autoFillCent() {
+    function autoFillCent() {   
+
         let size = document.getElementById('size').value;
     let price = document.getElementById('price').value;
     let retail = document.getElementById('retailInput').value;
@@ -1100,21 +1125,24 @@ function checkPriceForValidData(){
     let d = i.toString().split(".")[1];
 
     if (s < 1.00) {
-        youSavePriceMain.innerHTML = "." + d;
-    youSavePriceAlt.innerHTML = "";
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = "." + d;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = "";
     youSaveCents();
 
             } else {
-        youSavePriceMain.innerHTML = c;
-    youSavePriceAlt.innerHTML = d;
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = c;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = d;
     youSaveDollars();
             }
-    document.getElementById("whenYouBuy").style.cssText = "visibility:hidden;";
+    document.getElementById("whenYouBuy"+ signGridNumber).style.cssText = "visibility:hidden;";
 
-    unitPriceBox.innerHTML = final;
-    priceBeforeDecimal.innerHTML = "." + b;
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = "." + b;
     checkUnitState(unitTypeState);
         }
+
+
+        
     // DOLLAR AND CENTS
     function autoFillDolCent() {
         let size = document.getElementById('size').value;
@@ -1133,18 +1161,18 @@ function checkPriceForValidData(){
     let d = i.toString().split(".")[1];
 
     if (s < 1.00) {
-        youSavePriceMain.innerHTML = "." + d;
-    youSavePriceAlt.innerHTML = "";
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = "." + d;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = "";
     youSaveCents();
             } else {
-        youSavePriceMain.innerHTML = c;
-    youSavePriceAlt.innerHTML = d;
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = c;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = d;
     youSaveDollars();
             }
-    unitPriceBox.innerHTML = final;
-    priceBeforeDecimal.innerHTML = a;
-    priceAfterDecimal.innerHTML = b;
-    document.getElementById("whenYouBuy").style.cssText = "visibility:hidden;";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = a;
+    document.getElementById("priceAfterDecimal" + signGridNumber).innerHTML = b;
+    document.getElementById("whenYouBuy"+ signGridNumber).style.cssText = "visibility:hidden;";
     checkUnitState(unitTypeState);
         }
     // 2/$5 AND 2/$10
@@ -1166,26 +1194,26 @@ function checkPriceForValidData(){
 
 
     if (s < 1.00) {
-        youSavePriceMain.innerHTML = "." + d;
-    youSavePriceAlt.innerHTML = "";
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = "." + d;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = "";
     youSaveCents();
             } else {
-        youSavePriceMain.innerHTML = c;
-    youSavePriceAlt.innerHTML = d;
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = c;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = d;
     youSaveDollars();
             }
       
      if(document.querySelector("#onSale").checked){
-        document.getElementById("whenYouBuy").style.cssText = "visibility:visible;";
+        document.getElementById("whenYouBuy"+ signGridNumber).style.cssText = "visibility:visible;";
      }else{
-        document.getElementById("whenYouBuy").style.cssText = "visibility:hidden;";
+        document.getElementById("whenYouBuy"+ signGridNumber).style.cssText = "visibility:hidden;";
      }
 
-        priceBeforeDecimal.innerHTML = amount + "/";
-        unitPriceBox.innerHTML = final;
-        priceAfterDecimal.innerHTML = "$";
-        pRight.innerHTML = price;
-        spanWhenYouBuy.innerHTML = "BUY " + amount;
+        document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = amount + "/";
+        document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+        document.getElementById("priceAfterDecimal" + signGridNumber).innerHTML = "$";
+        document.getElementById("pRight" + signGridNumber).innerHTML = price;
+        document.getElementById("spanWhenYouBuy" + signGridNumber).innerHTML = "BUY " + amount;
     
 
     checkUnitState(unitTypeState);
@@ -1209,18 +1237,18 @@ function checkPriceForValidData(){
     let d = i.toString().split(".")[1];
 
     if (s < 1.00) {
-        youSavePriceMain.innerHTML = "." + d;
-    youSavePriceAlt.innerHTML = "";
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = "." + d;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = "";
     youSaveCents();
             } else {
-        youSavePriceMain.innerHTML = c;
-    youSavePriceAlt.innerHTML = d;
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = c;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = d;
     youSaveDollars();
             }
-    document.getElementById("whenYouBuy").style.cssText = "visibility:visible;";
+    document.getElementById("whenYouBuy"+ signGridNumber).style.cssText = "visibility:visible;";
 
-    unitPriceBox.innerHTML = final;
-    spanWhenYouBuy.innerHTML = "BUY 10";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("spanWhenYouBuy" + signGridNumber).innerHTML = "BUY 10";
     checkUnitState(unitTypeState);
         }
 
@@ -1244,87 +1272,87 @@ function checkPriceForValidData(){
     let d = i.toString().split(".")[1];
 
     if (s < 1.00) {
-        youSavePriceMain.innerHTML = "." + d;
-    youSavePriceAlt.innerHTML = "";
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = "." + d;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = "";
     youSaveCents();
             } else {
-        youSavePriceMain.innerHTML = c;
-    youSavePriceAlt.innerHTML = d;
+        document.getElementById("youSavePriceMain" + signGridNumber).innerHTML = c;
+        document.getElementById("youSavePriceAlt" + signGridNumber).innerHTML = d;
     youSaveDollars();
             }
-    document.getElementById("whenYouBuy").style.cssText = "visibility:visible;";
+    document.getElementById("whenYouBuy"+ signGridNumber).style.cssText = "visibility:visible;";
 
-    unitPriceBox.innerHTML = final;
-    spanWhenYouBuy.innerHTML = "BUY 2";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = final;
+    document.getElementById("spanWhenYouBuy" + signGridNumber).innerHTML = "BUY 2";
     checkUnitState(unitTypeState);
         }
 
     // layout functions
     function centsLayout() {
-        document.getElementById("priceAfterDecimal").style.cssText = "display: none;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 85%;height: 120px;";
-    document.getElementById("pRight").style.cssText = "display: none;";
+        document.getElementById("priceAfterDecimal"+ signGridNumber).style.cssText = "display: none;";
+    document.getElementById("priceBeforeDecimal"+ signGridNumber).style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 85%;height: 120px;";
+    document.getElementById("pRight"+ signGridNumber).style.cssText = "display: none;";
     document.getElementById("forAmount").style.cssText = "visibility:hidden;";
 
-    priceBeforeDecimal.innerHTML = ".99";
+     document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = ".99";
 
     let priceBox = document.getElementById("price");
     priceBox.disabled = false;
 
         }
     function dolCenLayout() {
-        document.getElementById("priceAfterDecimal").style.cssText = "font-size: 96px;float: right;width: 31%;margin - top: -32px;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 69%;height: 120px;";
-    document.getElementById("pRight").style.cssText = "display: none;";
+        document.getElementById("priceAfterDecimal"+ signGridNumber).style.cssText = "font-size: 96px;float: right;width: 31%;margin - top: -32px;";
+    document.getElementById("priceBeforeDecimal"+ signGridNumber).style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 69%;height: 120px;";
+    document.getElementById("pRight"+ signGridNumber).style.cssText = "display: none;";
     document.getElementById("forAmount").style.cssText = "visibility:hidden;";
 
-    priceBeforeDecimal.innerHTML = "2";
-    priceAfterDecimal.innerHTML = "99";
+    document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = "2";
+    document.getElementById("priceAfterDecimal" + signGridNumber).innerHTML = "99";
 
     let priceBox = document.getElementById("price");
     priceBox.disabled = false;
         }
     function forLayout() {
-        document.getElementById("pRight").style.cssText = "float: right;font-size: 162px; width: 28%; margin-top: -142px;padding-top: 0px;text-align: left;height: 120px;";
-    document.getElementById("priceAfterDecimal").style.cssText = "font-size: 100px;float: none;width: auto;margin - top: -35px;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 62%;height: 120px;";
+        document.getElementById("pRight"+ signGridNumber).style.cssText = "float: right;font-size: 162px; width: 28%; margin-top: -142px;padding-top: 0px;text-align: left;height: 120px;";
+    document.getElementById("priceAfterDecimal"+ signGridNumber).style.cssText = "font-size: 100px;float: none;width: auto;margin - top: -35px;";
+    document.getElementById("priceBeforeDecimal"+ signGridNumber).style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 62%;height: 120px;";
     document.getElementById("forAmount").style.cssText = "visibility: visible;";
 
-    priceBeforeDecimal.innerHTML = "2/";
-    priceAfterDecimal.innerHTML = "$";
-    pRight.innerHTML = "4";
+    document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = "2/";
+    document.getElementById("priceAfterDecimal" + signGridNumber).innerHTML = "$";
+    document.getElementById("pRight" + signGridNumber).innerHTML = "4";
 
     let priceBox = document.getElementById("price");
     priceBox.disabled = false;
         }
 
     function forLayoutdoub() {
-        document.getElementById("pRight").style.cssText = "float: right;font-size: 162px;margin-top: -142px;padding-top: 0px;text-align: left;height: 200px;width: 43%";
-    document.getElementById("priceAfterDecimal").style.cssText = "font-size: 100px;float: none;width: auto;margin - top: -35px;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 48%;height: 120px;";
+        document.getElementById("pRight"+ signGridNumber).style.cssText = "float: right;font-size: 162px;margin-top: -142px;padding-top: 0px;text-align: left;height: 200px;width: 43%";
+    document.getElementById("priceAfterDecimal"+ signGridNumber).style.cssText = "font-size: 100px;float: none;width: auto;margin - top: -35px;";
+    document.getElementById("priceBeforeDecimal"+ signGridNumber).style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 48%;height: 120px;";
     document.getElementById("forAmount").style.cssText = "visibility: visible;";
-    priceBeforeDecimal.innerHTML = "2/";
-    priceAfterDecimal.innerHTML = "$";
-    pRight.innerHTML = "10";
+    document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = "2/";
+    document.getElementById("priceAfterDecimal" + signGridNumber).innerHTML = "$";
+    document.getElementById("pRight" + signGridNumber).innerHTML = "10";
 
     let priceBox = document.getElementById("price");
     priceBox.disabled = false;
         }
     function tenLayout() {
-        document.getElementById("priceAfterDecimal").style.cssText = "visibility: visible;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin-top:-29px;padding - top: 0px;float: left;text - align: right;width: 90%;height: 120px;";
-    document.getElementById("pRight").style.cssText = "display: none;";
+        document.getElementById("priceAfterDecimal"+ signGridNumber).style.cssText = "visibility: visible;";
+    document.getElementById("priceBeforeDecimal"+ signGridNumber).style.cssText = "font-size: 162px;margin-top:-29px;padding - top: 0px;float: left;text - align: right;width: 90%;height: 120px;";
+    document.getElementById("pRight"+ signGridNumber).style.cssText = "display: none;";
     document.getElementById("forAmount").style.cssText = "visibility:hidden;";
 
-    priceBeforeDecimal.innerHTML = "";
-    unitPriceBox.innerHTML = "";
-    priceAfterDecimal.innerHTML = "";
-    pRight.innerHTML = "";
+    document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = "";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = "";
+    document.getElementById("priceAfterDecimal" + signGridNumber).innerHTML = "";
+    document.getElementById("pRight" + signGridNumber).innerHTML = "";
     var elem = document.createElement("img");
     elem.src = 'images/ten_for_ten.jpg';
     elem.setAttribute("height", "135");
     elem.setAttribute("width", "430");
-    document.getElementById("priceBeforeDecimal").appendChild(elem);
+    document.getElementById("priceBeforeDecimal"+ signGridNumber).appendChild(elem);
     // lock in correct price
     let priceBox = document.getElementById("price");
     priceBox.value = "1";
@@ -1332,9 +1360,9 @@ function checkPriceForValidData(){
 
         }
     function boGoLayout() {
-        document.getElementById("priceAfterDecimal").style.cssText = "visibility: visible;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin-top:-29px;padding - top: 0px;float: left;text - align: right;width: 90%;height: 120px;";
-    document.getElementById("pRight").style.cssText = "display: none;";
+        document.getElementById("priceAfterDecimal"+ signGridNumber).style.cssText = "visibility: visible;";
+    document.getElementById("priceBeforeDecimal"+ signGridNumber).style.cssText = "font-size: 162px;margin-top:-29px;padding - top: 0px;float: left;text - align: right;width: 90%;height: 120px;";
+    document.getElementById("pRight"+ signGridNumber).style.cssText = "display: none;";
     document.getElementById("forAmount").style.cssText = "visibility:hidden;";
 
     let priceBox = document.getElementById("price");
@@ -1342,44 +1370,46 @@ function checkPriceForValidData(){
     priceBox.disabled = true;
     
 
-    priceBeforeDecimal.innerHTML = "";
-    unitPriceBox.innerHTML = "";
-    priceAfterDecimal.innerHTML = "";
-    pRight.innerHTML = "";
+    document.getElementById("priceBeforeDecimal" + signGridNumber).innerHTML = "";
+    document.getElementById("unitPriceBox" + signGridNumber).innerHTML = "";
+    document.getElementById("priceAfterDecimal" + signGridNumber).innerHTML = "";
+    document.getElementById("pRight" + signGridNumber).innerHTML = "";
     var elem = document.createElement("img");
     elem.src = 'images/bogo.jpg';
     elem.setAttribute("height", "140");
     elem.setAttribute("width", "350");
-    document.getElementById("priceBeforeDecimal").appendChild(elem);
+    document.getElementById("priceBeforeDecimal"+ signGridNumber).appendChild(elem);
 
     checkPriceForValidData();
         }
     // you save layout change
     function youSaveCents() {
-        document.getElementById("youSaveImg").style.cssText = "display: grid; grid-template-columns: 52px 79px 38px;";
-    document.getElementById("youSavePriceAlt").style.cssText = "display: none;";
-    document.getElementById("youSavePriceMain").style.cssText = "text-align: center;";
+        document.getElementById("youSaveImg"+ signGridNumber).style.cssText = "display: grid; grid-template-columns: 52px 79px 38px;";
+    document.getElementById("youSavePriceAlt"+ signGridNumber).style.cssText = "display: none;";
+    document.getElementById("youSavePriceMain"+ signGridNumber).style.cssText = "text-align: center;";
         }
     function youSaveDollars() {
-        document.getElementById("youSaveImg").style.cssText = "display: grid; grid-template-columns: 52px 42px 37px 38px;";
-    document.getElementById("youSavePriceAlt").style.cssText = "display: initial;";
-    document.getElementById("youSavePriceMain").style.cssText = "text-align: right;";
+        document.getElementById("youSaveImg"+ signGridNumber).style.cssText = "display: grid; grid-template-columns: 52px 42px 37px 38px;";
+    document.getElementById("youSavePriceAlt"+ signGridNumber).style.cssText = "display: initial;";
+    document.getElementById("youSavePriceMain"+ signGridNumber).style.cssText = "text-align: right;";
         }
+
 
 
     // Code to change the sign size to B by linking a button to index.html
     document.getElementById("buttonToSwitchSignSizeToB").addEventListener("click", function () {
         location.href = 'BSize.html';
         })
-    document.getElementById("buttonToSwitchSignSizeToD").addEventListener("click", function () {
-        location.href = 'DSize.html';
+    document.getElementById("buttonToSwitchSignSizeToC").addEventListener("click", function () {
+        location.href = 'CSize.html';
         })
 document.querySelector("#realHeader > img").addEventListener('click', function(){
     location.href = 'index.html';
 })
+
+        // Windows onload function
         window.onload = (event) => {
     addToRecent();
     addToFavorites();
     addWeekEndingSaleDate();
-    
 };

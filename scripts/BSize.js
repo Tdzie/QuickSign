@@ -20,10 +20,12 @@ printButton.addEventListener('click', storeSignInformation);
 addToFavoritesButton.addEventListener('click', storeSignInformationForFavorites);
 
 
-// consts for document information
+// consts for get DOM elements for sign information
+
     const sizePForErrorMessage = document.querySelector("#priceInputOuterDiv > div:nth-child(1) > p");
     const retailPForErrorMessage = document.querySelector("#priceInputOuterDiv > div:nth-child(2) > p");
     const pricePForErrorMessae = document.querySelector("#priceInputOuterDiv > div:nth-child(4) > p");
+
 
     const onSaleButton = document.getElementById("onSale");
     const offSaleButton = document.getElementById("notOnSale");
@@ -63,6 +65,8 @@ addToFavoritesButton.addEventListener('click', storeSignInformationForFavorites)
 
     const sumbitButton = document.getElementById('submitButton');
 
+
+
 // events for onchange size/retail/price
 sizeInput.addEventListener('focusout', checkSizeForValidData);
 retailInput.addEventListener('focusout',checkRetailForValidData);
@@ -72,7 +76,6 @@ priceInput.addEventListener('focusout',checkPriceForValidData);
 priceInput.addEventListener('click', function(){this.select();})
 retailInput.addEventListener('click', function(){this.select();})
 sizeInput.addEventListener('click', function(){this.select();})
-
 // ============================ function to get the date for this saturday used for value of sale date input and date on sign ============
 //  
 function getSaturdayOfCurrentWeek() {
@@ -93,7 +96,7 @@ let saturday = getSaturdayOfCurrentWeek();
     saleDateDescriptionSign.innerHTML = `ON SALE THRU ${saturday}`;
 }
 // ===================================================End======================================================================
-// Create or load the recents signs from local storage.
+    // Create or load the recents signs from local storage.
 if(localStorage.getItem('signHistory') == null)
 {
     localStorage.setItem('signHistory', JSON.stringify(signHistoryArr));
@@ -114,7 +117,6 @@ else
     let unparFavorites = localStorage.getItem('userFavorites');
     signFavortiesArr = JSON.parse(unparFavorites);
 }
-
 
 function resetInputBoxes(){
 
@@ -144,9 +146,11 @@ function resetInputBoxes(){
 }
 
 
-// ========================  Recent/history section    ===========================
+
+// ---------------------        Recent/history section ---------------------
 // Function to signs to recent signs
 function storeSignInformation(){
+
     // sale button
     let saleRadioButtons = document.getElementsByName("OnOrOffSale");
     let selectedSale = Array.from(saleRadioButtons).find(radio => radio.checked);
@@ -186,10 +190,11 @@ function storeSignInformation(){
     localStorage.setItem('signHistory',JSON.stringify(signHistoryArr));
 
     addToRecent();
+    
     resetInputBoxes();
 }
 
-
+// Add sign to recent
 function addToRecent(){
    
     let firstSign = localStorage.getItem('signHistory');
@@ -198,7 +203,7 @@ function addToRecent(){
     let currentIDNumber = 0;
     prasedResult.forEach(element => {
         let newP = document.createElement('P');
-        newP.innerHTML = `${element[2]}`;
+        newP.innerHTML = element[2];
         newP.setAttribute('id', `recentSign${currentIDNumber}`)
         newP.value = currentIDNumber;
         newP.onclick = createSignFromHistory;
@@ -207,10 +212,6 @@ function addToRecent(){
     });
     
 }
-
-
-
-
 function createSignFromHistory(){
 
     let signInformation = signHistoryArr[this.value];
@@ -243,7 +244,6 @@ function createSignFromHistory(){
     altDescriptionInput.value = signInformation[3];
     altDescriptionSign.innerHTML = signInformation[3];
     addWeekEndingSaleDate();
-
     // price layouts
     switch (signInformation[5]) {
         case 'cents':
@@ -307,9 +307,11 @@ function createSignFromHistory(){
     //submit button
     sumbitButton.click()
 }
-// ========================== END of recent/history section ==================
 
-// ========================== FAVORITES SECTION ==============================
+
+
+
+// --------------- FAVORITES SECTION -----------------------
 
 // this functions stores the sign informatin into the signFavoritesArr
 function storeSignInformationForFavorites(){
@@ -478,7 +480,14 @@ function createSignFromFavorites(event){
     sumbitButton.click()
 }
 }
-// ==================== END of Favorites section ==================================
+
+
+    
+
+
+
+
+
 
 
 
@@ -492,10 +501,6 @@ function createSignFromFavorites(event){
     document.getElementById("LBVisible").onclick = function() {
         document.getElementById("LBOption").style.display = 'initial';
 	};
-
-
-
-
 
     // Gobal let for unit type
     var unitTypeState = 1;
@@ -527,8 +532,7 @@ function createSignFromFavorites(event){
             }
         }
     // CODE FOR CHANGING UNIT TYPES
-
-// ======================= TOGGLE 750mL ============================
+    // ======================= TOGGLE 750mL ============================
      function toggle750ml() {
         document.querySelector("#size").value = 25.3605;
         document.querySelector("#size").disabled = true;
@@ -580,11 +584,11 @@ function createSignFromFavorites(event){
     checkSizeForValidData();
         }
 
-
-    // =================== TOGGLE EACH========================
+    // =====================TOGGLE EACH====================================
     function toggleEach() {
         sizeInput.value = 1;
         document.querySelector("#size").disabled = true;
+      
         let bogoLayout = document.getElementById("boGoLayout").checked;
     let priceInput;
     if(bogoLayout){
@@ -592,8 +596,6 @@ function createSignFromFavorites(event){
 	    }else{
         priceInput = document.getElementById('price').value;
 	    }
-
-
     let amount = document.getElementById('forAmount').value;
     if (priceInput % .25 == 0 && priceInput != 1) {
         priceInput = priceInput / amount;
@@ -605,9 +607,9 @@ function createSignFromFavorites(event){
     unitTypeState = 3;
     checkSizeForValidData();
         }
-    // ===================== TOGGLE QUART============================
+    // ========================TOGGLE QUART==============================
     function toggleQuart() {
-         document.querySelector("#size").disabled = false;
+        document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
     let priceInput;
     if(bogoLayout){
@@ -628,7 +630,7 @@ function createSignFromFavorites(event){
     unitType.innerHTML = "PER QUART";
     unitTypeState = 2;
         }
-    // ====================TOGGLE POUND======================
+    // ======================TOGGLE POUND============================
     function togglePound() {
         document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
@@ -651,7 +653,7 @@ function createSignFromFavorites(event){
     unitType.innerHTML = "PER POUND";
     unitTypeState = 1;
         }
-    // ==========================TOGGLE 50 ct==========================
+    // =======================TOGGLE 50 sq ft===============================
     function toggle50ct() {
         document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
@@ -674,7 +676,7 @@ function createSignFromFavorites(event){
     unitType.innerHTML = "PER 50 SQ FT";
     unitTypeState = 4;
         }
-    // =====================TOGGLE 100 ct=====================================
+    // ========================TOGGLE 100 ct=======================
     function toggle100ct() {
         document.querySelector("#size").disabled = false;
         let bogoLayout = document.getElementById("boGoLayout").checked;
@@ -683,7 +685,8 @@ function createSignFromFavorites(event){
         priceInput = document.getElementById('retailInput').value / 2;
 	    }else{
         priceInput = document.getElementById('price').value;
-	    }size = document.getElementById('size').value;
+	    }
+    let size = document.getElementById('size').value;
     let amount = document.getElementById('forAmount').value;
 
     if (priceInput % .25 == 0 && priceInput != 1) {
@@ -697,7 +700,7 @@ function createSignFromFavorites(event){
     unitTypeState = 5;
 
         }
-    // =======================PER OUNCE============================
+    // ==================== TOGGLE PER OUNCE =======================
 
     function toggleOunce() {
         document.querySelector("#size").disabled = false;
@@ -721,14 +724,9 @@ function createSignFromFavorites(event){
     unitType.innerHTML = "PER OUNCE";
     unitTypeState = 6;
         }
-    // ======================OVERIDES TOGGLE============================
-    function toggleOff() {
-        document.getElementById("overides").style.cssText = "display: none;";
-        }
-    function toggleOn() {
-        document.getElementById("overides").style.cssText = "display: initial";
-        }
 
+
+    // CODE FOR OVERIDES
     function addMain() {
         let userInput = document.querySelector("#mainDesInput");
     let mainDescription = document.getElementById('mainDescription');
@@ -795,7 +793,7 @@ function createSignFromFavorites(event){
 
     retail.innerHTML = retailInput.value;
         }
-    // NOT USED
+    // NOT USED 
     function submitAll() {
         addMain();
     addAlt();
@@ -809,6 +807,15 @@ function createSignFromFavorites(event){
     addYouSaveAlt();
     addRetail();
         }
+
+    // OVERIDES TOGGLE
+    function toggleOff() {
+        document.getElementById("overides").style.cssText = "display: none;";
+        }
+    function toggleOn() {
+        document.getElementById("overides").style.cssText = "display: initial";
+        }
+
     // ON SALE / OFF SALE TOGGLE
     function noSale() {
         document.getElementById("whenYouBuy").className = "noSale";
@@ -820,7 +827,7 @@ function createSignFromFavorites(event){
     document.getElementById("youSavePriceMainInput").className = "noSale";
     document.getElementById("youSavePriceAltInput").className = "noSale";
     document.getElementById("retailInput").className = "noSale";
-    document.querySelector("#pRetail").className = "noSale"; 
+	document.querySelector("#pRetail").className = "noSale"; 
 
         }
     function myFunction1() {
@@ -836,7 +843,7 @@ function createSignFromFavorites(event){
             var x = document.getElementById("advCardDiv");
     // If "mystyle" exist, overwrite it with "mystyle2"
     if (x.className === "noSale") {
-        x.className = "sale";
+        x.className = "sale";.00
             } else {
         x.className = "sale";
             }
@@ -904,7 +911,8 @@ function createSignFromFavorites(event){
         x.className = "sale";
             }
         }
-        function myFunction10() {
+
+function myFunction10() {
             var x = document.querySelector("#pRetail");
     // If "mystyle" exist, overwrite it with "mystyle2"
     if (x.className === "noSale") {
@@ -913,9 +921,8 @@ function createSignFromFavorites(event){
         x.className = "sale";
             }
         }
-     
     function saleAll() {
-        myFunction1();
+    myFunction1();
     myFunction2();
     myFunction3();
     myFunction4();
@@ -926,7 +933,126 @@ function createSignFromFavorites(event){
     myFunction9();
     myFunction10();
         }
-        // ===========================price adjust 888 -> 8.88=====================
+
+
+    function priceErrorCheck(priceInputString){
+         if(priceInputString == 'bogo' && bogoLayoutButton.checked == true )
+    {
+        return false;
+    }
+    else if(isNaN(priceInputString) || priceInputString == '' || priceInputString == " ")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    }
+
+  // Function to check of inputs are valid for size, retail, and price
+function checkSizeForValidData(){
+        if(isNaN(sizeInput.value) || sizeInput.value == "")
+        {
+            sizeInput.style.backgroundColor = "#FF8E8E";
+            sizePForErrorMessage.innerHTML = `\u274C Required:<br> Numbers Only`;
+            sizePForErrorMessage.style.color = "Red";
+            return false;
+        }
+        else
+        {
+            sizeInput.style.backgroundColor = "#E4FFA0";
+            sizePForErrorMessage.innerHTML = "\u2713";
+            sizePForErrorMessage.style.color = "#4c4";
+            
+            return true;
+                
+        }
+    }
+
+function checkRetailForValidData(){
+ if(isNaN(retailInput.value) || retailInput.value == "" && onSaleButton.checked)
+        {
+            retailInput.style.backgroundColor = "#FF8E8E";
+            retailPForErrorMessage.innerHTML = `\u274C Required:<br> Numbers Only`;
+            retailPForErrorMessage.style.color = "Red";
+            return false;
+        }
+        else{
+            retailPForErrorMessage.innerHTML = "\u2713";
+            retailPForErrorMessage.style.color = "#4c4";
+            retailInput.value = alterPriceAddDecimal(retailInput.value);
+            retailInput.style.backgroundColor = "#E4FFA0";
+              retailOnSign.innerHTML = retailInput.value;
+            return true;
+        }
+}
+
+
+function checkPriceForValidData(){
+ if (priceErrorCheck(priceInput.value))
+        {
+                priceInput.style.backgroundColor = "#FF8E8E";
+                pricePForErrorMessae.innerHTML = `\u274C Required:<br> Numbers Only`;
+                pricePForErrorMessae.style.color = "Red";
+                return false;
+        }
+        else{
+            if(forOneLayoutButton.checked){
+                priceInput.value = priceInput.value.slice(0,1)
+            }
+            if(forTwoLayoutButton.checked){
+                priceInput.value = priceInput.value.slice(0,2);
+            }
+            pricePForErrorMessae.innerHTML = "\u2713";
+            pricePForErrorMessae.style.color = "#4c4";
+            priceInput.style.backgroundColor = "#E4FFA0";
+            if(priceInput.value != "bogo"){
+                 priceInput.value = alterPriceAddDecimal(priceInput.value)
+             }
+   
+
+
+       
+            return true;
+        }
+}
+
+    // FUNCTION TO CHECK THE TYPE OF PRICE AND RUN AUTO FILLS
+    function pickTypeOfPrice() {
+        if(checkSizeForValidData() && checkRetailForValidData() && checkPriceForValidData()){
+ 
+        if(altDescriptionInput.value == ""){
+            altDescriptionSign.innerText = " ";
+        }
+    
+       
+        //=================== 
+        // button checked status
+        let cents = document.getElementById("centsLayout").checked;
+        let forLayout = document.getElementById("forLayout").checked;
+        let forLayoutD = document.getElementById("forLayoutD").checked;
+        let bogoLayout = document.getElementById("boGoLayout").checked;
+        let tenLayout = document.getElementById("tenLayout").checked;
+
+        if (cents) {
+            autoFillCent();
+                }
+        else if (tenLayout) {
+            autoFillTen();
+                }
+        else if (bogoLayout) {
+            autoFillBogo();
+                }
+        else if (forLayout || forLayoutD) {
+            autoFillFor();
+                }
+        else {
+            autoFillDolCent();
+                }
+    }
+   }
+   // price adjust 888 -> 8.88
    function alterPriceAddDecimal(price){
     let priceBeforeDecimal;
     let priceAfterDecimal;
@@ -959,131 +1085,8 @@ function createSignFromFavorites(event){
         return price;
     }
    }
-// =================================price verification================
-         function priceErrorCheck(priceInputString){
-         if(priceInputString == 'bogo' && bogoLayoutButton.checked == true )
-    {
-        return false;
-    }
-    else if(isNaN(priceInputString) || priceInputString == '' || priceInputString == " ")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    }
 
-    // Function to check of inputs are valid for size, retail, and price
-function checkSizeForValidData(){
-        if(isNaN(sizeInput.value) || sizeInput.value == "")
-        {
-            sizeInput.value = "";
-            sizeInput.style.backgroundColor = "#FF8E8E";
-            sizePForErrorMessage.innerHTML = `\u274C Required:<br> Numbers Only`;
-            sizePForErrorMessage.style.color = "Red";
-            return false;
-        }
-        else
-        {
-            sizeInput.style.backgroundColor = "#E4FFA0";
-            sizePForErrorMessage.innerHTML = "\u2713";
-            sizePForErrorMessage.style.color = "#4c4";
-            
-            return true;
-                
-        }
-    }
-
-function checkRetailForValidData(){
- if(isNaN(retailInput.value) || retailInput.value == "" && onSaleButton.checked)
-        {
-            retailInput.value = "";
-            retailInput.style.backgroundColor = "#FF8E8E";
-            retailPForErrorMessage.innerHTML = `\u274C Required:<br> Numbers Only`;
-            retailPForErrorMessage.style.color = "Red";
-            return false;
-        }
-        else{
-            retailPForErrorMessage.innerHTML = "\u2713";
-            retailPForErrorMessage.style.color = "#4c4";
-            retailInput.value = alterPriceAddDecimal(retailInput.value);
-            retailInput.style.backgroundColor = "#E4FFA0";
-              retailOnSign.innerHTML = retailInput.value;
-            return true;
-        }
-}
-
-
-function checkPriceForValidData(){
- if (priceErrorCheck(priceInput.value))
-        {
-                priceInput.value = ""; 
-                priceInput.style.backgroundColor = "#FF8E8E";
-                pricePForErrorMessae.innerHTML = `\u274C Required:<br> Numbers Only`;
-                pricePForErrorMessae.style.color = "Red";
-                return false;
-        }
-        else{
-               if(forOneLayoutButton.checked){
-                priceInput.value = priceInput.value.slice(0,1)
-            }
-            if(forTwoLayoutButton.checked){
-                priceInput.value = priceInput.value.slice(0,2);
-            }
-            pricePForErrorMessae.innerHTML = "\u2713";
-            pricePForErrorMessae.style.color = "#4c4";
-            priceInput.style.backgroundColor = "#E4FFA0";
-            if(priceInput.value != "bogo"){
-                 priceInput.value = alterPriceAddDecimal(priceInput.value)
-             }
-   
-
-
-       
-            return true;
-        }
-}
-
-    // FUNCTION TO CHECK THE TYPE OF PRICE AND RUN AUTO FILLS
-    function pickTypeOfPrice() {
-    
-    if(checkSizeForValidData() && checkRetailForValidData() && checkPriceForValidData()){
-
-        if(altDescriptionInput.value == ""){
-            altDescriptionSign.innerText = " ";
-        }
-       
-
-
-
-        // button checked status
-        let cents = document.getElementById("centsLayout").checked;
-    let forLayout = document.getElementById("forLayout").checked;
-    let forLayoutD = document.getElementById("forLayoutD").checked;
-    let bogoLayout = document.getElementById("boGoLayout").checked;
-    let tenLayout = document.getElementById("tenLayout").checked;
-
-    if (cents) {
-        autoFillCent();
-            }
-    else if (tenLayout) {
-        autoFillTen();
-            }
-    else if (bogoLayout) {
-        autoFillBogo();
-            }
-    else if (forLayout || forLayoutD) {
-        autoFillFor();
-            }
-    else {
-        autoFillDolCent();
-            }
-        }
-    }
-
-    // AUTO FILL FUNCTIONS
+    // ========================  AUTO FILL FUNCTIONS =================================
     //  CENTS
     function autoFillCent() {
         let size = document.getElementById('size').value;
@@ -1103,16 +1106,15 @@ function checkPriceForValidData(){
         youSavePriceMain.innerHTML = "." + d;
     youSavePriceAlt.innerHTML = "";
     youSaveCents();
-
+                
             } else {
         youSavePriceMain.innerHTML = c;
     youSavePriceAlt.innerHTML = d;
     youSaveDollars();
             }
-    document.getElementById("whenYouBuy").style.cssText = "visibility:hidden;";
-
     unitPriceBox.innerHTML = final;
     priceBeforeDecimal.innerHTML = "." + b;
+    document.getElementById("whenYouBuy").style.cssText = "visibility:hidden;";
     checkUnitState(unitTypeState);
         }
     // DOLLAR AND CENTS
@@ -1174,23 +1176,20 @@ function checkPriceForValidData(){
     youSavePriceAlt.innerHTML = d;
     youSaveDollars();
             }
-      
+
      if(document.querySelector("#onSale").checked){
         document.getElementById("whenYouBuy").style.cssText = "visibility:visible;";
      }else{
         document.getElementById("whenYouBuy").style.cssText = "visibility:hidden;";
      }
 
-        priceBeforeDecimal.innerHTML = amount + "/";
-        unitPriceBox.innerHTML = final;
-        priceAfterDecimal.innerHTML = "$";
-        pRight.innerHTML = price;
-        spanWhenYouBuy.innerHTML = "BUY " + amount;
-    
-
+    priceBeforeDecimal.innerHTML = amount+"/";
+    unitPriceBox.innerHTML = final;
+    priceAfterDecimal.innerHTML = "$";
+    pRight.innerHTML = price;
+    spanWhenYouBuy.innerHTML = "BUY " + amount;
     checkUnitState(unitTypeState);
         }
-
     //TENFORTEN
     function autoFillTen() {
         let size = document.getElementById('size').value;
@@ -1217,7 +1216,7 @@ function checkPriceForValidData(){
     youSavePriceAlt.innerHTML = d;
     youSaveDollars();
             }
-    document.getElementById("whenYouBuy").style.cssText = "visibility:visible;";
+    document.getElementById("whenYouBuy").style.cssText = "visibility: visible;";
 
     unitPriceBox.innerHTML = final;
     spanWhenYouBuy.innerHTML = "BUY 10";
@@ -1234,7 +1233,7 @@ function checkPriceForValidData(){
 
 
 
-    let s = (retail * 2)-price;
+    let s = ((retail * 2)  - price);
     let i = s.toFixed(2);
     let fin = ((price / size) * 16) / 2;
     let final = fin.toFixed(2);
@@ -1252,17 +1251,17 @@ function checkPriceForValidData(){
     youSavePriceAlt.innerHTML = d;
     youSaveDollars();
             }
-    document.getElementById("whenYouBuy").style.cssText = "visibility:visible;";
+    document.getElementById("whenYouBuy").style.cssText = "visibility: visible;";
 
     unitPriceBox.innerHTML = final;
     spanWhenYouBuy.innerHTML = "BUY 2";
     checkUnitState(unitTypeState);
         }
+    // LAYOUT FUNCTIONS
 
-    // layout functions
     function centsLayout() {
         document.getElementById("priceAfterDecimal").style.cssText = "display: none;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 85%;height: 120px;";
+    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 330px;margin - top: -73px;padding - top: 0px;float: right;text - align: right;width: 75%;height: 200px;";
     document.getElementById("pRight").style.cssText = "display: none;";
     document.getElementById("forAmount").style.cssText = "visibility:hidden;";
 
@@ -1273,8 +1272,8 @@ function checkPriceForValidData(){
 
         }
     function dolCenLayout() {
-        document.getElementById("priceAfterDecimal").style.cssText = "font-size: 96px;float: right;width: 31%;margin - top: -32px;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 69%;height: 120px;";
+        document.getElementById("priceAfterDecimal").style.cssText = "font-size: 150px;float: right;width: 25 %;margin-top: -29px;";
+    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 330px;margin - top: -73px;padding - top: 0px;float: left;text - align: right;width: 75 %;height: 200px;";
     document.getElementById("pRight").style.cssText = "display: none;";
     document.getElementById("forAmount").style.cssText = "visibility:hidden;";
 
@@ -1285,9 +1284,9 @@ function checkPriceForValidData(){
     priceBox.disabled = false;
         }
     function forLayout() {
-        document.getElementById("pRight").style.cssText = "float: right;font-size: 162px; width: 28%; margin-top: -142px;padding-top: 0px;text-align: left;height: 120px;";
-    document.getElementById("priceAfterDecimal").style.cssText = "font-size: 100px;float: none;width: auto;margin - top: -35px;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 62%;height: 120px;";
+        document.getElementById("pRight").style.cssText = "float: right;font-size: 330px;margin-top: -238px;padding-top: 0px;text-align: right;height: 200px;";
+    document.getElementById("priceAfterDecimal").style.cssText = "font-size: 150px;float: none;width: auto;margin-top: -15px;";
+    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 330px;margin - top: -73px;padding - top: 0px;float: left;text - align: right;width: 65%;height: 200px;";
     document.getElementById("forAmount").style.cssText = "visibility: visible;";
 
     priceBeforeDecimal.innerHTML = "2/";
@@ -1299,9 +1298,9 @@ function checkPriceForValidData(){
         }
 
     function forLayoutdoub() {
-        document.getElementById("pRight").style.cssText = "float: right;font-size: 162px;margin-top: -142px;padding-top: 0px;text-align: left;height: 200px;width: 43%";
-    document.getElementById("priceAfterDecimal").style.cssText = "font-size: 100px;float: none;width: auto;margin - top: -35px;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin - top: -51px;padding - top: 0px;float: left;text - align: right;width: 48%;height: 120px;";
+        document.getElementById("pRight").style.cssText = "float: right;font-size: 330px;margin-top: -238px;padding-top: 0px;text-align: right;height: 200px;";
+    document.getElementById("priceAfterDecimal").style.cssText = "font-size: 150px;float: none;width: auto;margin-top: -15px;";
+    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 330px;margin - top: -73px;padding - top: 0px;float: left;text - align: right;width: 44%;height: 200px;";
     document.getElementById("forAmount").style.cssText = "visibility: visible;";
     priceBeforeDecimal.innerHTML = "2/";
     priceAfterDecimal.innerHTML = "$";
@@ -1311,8 +1310,8 @@ function checkPriceForValidData(){
     priceBox.disabled = false;
         }
     function tenLayout() {
-        document.getElementById("priceAfterDecimal").style.cssText = "visibility: visible;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin-top:-29px;padding - top: 0px;float: left;text - align: right;width: 90%;height: 120px;";
+        document.getElementById("priceAfterDecimal").style.cssText = "display: none;";
+    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 330px;margin - top: -73px;padding - top: 0px;float: right;text - align: right;width: 100%;height: 200px;";
     document.getElementById("pRight").style.cssText = "display: none;";
     document.getElementById("forAmount").style.cssText = "visibility:hidden;";
 
@@ -1322,25 +1321,22 @@ function checkPriceForValidData(){
     pRight.innerHTML = "";
     var elem = document.createElement("img");
     elem.src = 'images/ten_for_ten.jpg';
-    elem.setAttribute("height", "135");
-    elem.setAttribute("width", "430");
+    elem.setAttribute("height", "220");
+    elem.setAttribute("width", "700");
     document.getElementById("priceBeforeDecimal").appendChild(elem);
+
     // lock in correct price
     let priceBox = document.getElementById("price");
     priceBox.value = "1";
     priceBox.disabled = true;
 
+
         }
     function boGoLayout() {
-        document.getElementById("priceAfterDecimal").style.cssText = "visibility: visible;";
-    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 162px;margin-top:-29px;padding - top: 0px;float: left;text - align: right;width: 90%;height: 120px;";
+        document.getElementById("priceAfterDecimal").style.cssText = "display: none;";
+    document.getElementById("priceBeforeDecimal").style.cssText = "font-size: 330px;margin - top: -73px;padding - top: 0px;float: right;text - align: right;width: 100%;height: 200px;";
     document.getElementById("pRight").style.cssText = "display: none;";
     document.getElementById("forAmount").style.cssText = "visibility:hidden;";
-
-    let priceBox = document.getElementById("price");
-    priceBox.value = "bogo";
-    priceBox.disabled = true;
-    
 
     priceBeforeDecimal.innerHTML = "";
     unitPriceBox.innerHTML = "";
@@ -1348,28 +1344,33 @@ function checkPriceForValidData(){
     pRight.innerHTML = "";
     var elem = document.createElement("img");
     elem.src = 'images/bogo.jpg';
-    elem.setAttribute("height", "140");
-    elem.setAttribute("width", "350");
+    elem.setAttribute("height", "220");
+    elem.setAttribute("width", "525");
     document.getElementById("priceBeforeDecimal").appendChild(elem);
+    spanWhenYouBuy.innerHTML = "2";
 
+    let priceBox = document.getElementById("price");
+    priceBox.value = "bogo";
+    priceBox.disabled = true;
     checkPriceForValidData();
+
         }
-    // you save layout change
+    // LAYOUT FUNCTIONS FOR YOU SAVE
     function youSaveCents() {
-        document.getElementById("youSaveImg").style.cssText = "display: grid; grid-template-columns: 52px 79px 38px;";
+        document.getElementById("youSaveImg").style.cssText = "display: grid; grid-template-columns: 78px 140px 57px;";
     document.getElementById("youSavePriceAlt").style.cssText = "display: none;";
     document.getElementById("youSavePriceMain").style.cssText = "text-align: center;";
         }
     function youSaveDollars() {
-        document.getElementById("youSaveImg").style.cssText = "display: grid; grid-template-columns: 52px 42px 37px 38px;";
+        document.getElementById("youSaveImg").style.cssText = "display: grid; grid-template-columns: 78px 80px 60px 57px;";
     document.getElementById("youSavePriceAlt").style.cssText = "display: initial;";
     document.getElementById("youSavePriceMain").style.cssText = "text-align: right;";
         }
 
 
-    // Code to change the sign size to B by linking a button to index.html
-    document.getElementById("buttonToSwitchSignSizeToB").addEventListener("click", function () {
-        location.href = 'BSize.html';
+    // Code to change the sign size to C by linking a button to CSize.html
+    document.getElementById("buttonToSwitchSignSizeToC").addEventListener("click", function () {
+        location.href = 'CSize.html';
         })
     document.getElementById("buttonToSwitchSignSizeToD").addEventListener("click", function () {
         location.href = 'DSize.html';
@@ -1377,7 +1378,9 @@ function checkPriceForValidData(){
 document.querySelector("#realHeader > img").addEventListener('click', function(){
     location.href = 'index.html';
 })
-        window.onload = (event) => {
+
+        // Event to load on start
+window.onload = (event) => {
     addToRecent();
     addToFavorites();
     addWeekEndingSaleDate();
